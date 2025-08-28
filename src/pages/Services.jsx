@@ -123,7 +123,7 @@ const Services = () => {
             transition={{ duration: 0.5 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins mb-6 dark:text-gray-300">
               Our <span className="gradient-text">Services</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -148,7 +148,7 @@ const Services = () => {
                 <div className="w-20 h-20 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
                   <service.icon className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-6 dark:text-gray-300">
                   {service.title}
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
@@ -221,7 +221,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4 dark:text-gray-300">
               Additional <span className="gradient-text">Services</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -229,7 +229,7 @@ const Services = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 dark:text-gray-300">
             {additionalServices.map((service, index) => (
               <motion.div
                 key={service.title}
@@ -262,7 +262,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4 dark:text-gray-300">
               Why Choose <span className="gradient-text">RyphTech?</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -270,7 +270,7 @@ const Services = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 dark:text-gray-300">
             {[
               {
                 icon: Zap,
@@ -333,7 +333,7 @@ const Services = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4 dark:text-gray-300">
               Ready to Get <span className="gradient-text">Started?</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">

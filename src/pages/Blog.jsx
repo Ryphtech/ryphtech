@@ -125,7 +125,7 @@ const Blog = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins mb-6 dark:text-gray-300">
               Our <span className="gradient-text">Blog</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -322,7 +322,7 @@ const Blog = () => {
             viewport={{ once: true }}
             className="text-center max-w-2xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4 dark:text-gray-300">
               Stay Updated with Our <span className="gradient-text">Insights</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
