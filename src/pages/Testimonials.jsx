@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Star, 
@@ -10,9 +10,18 @@ import {
   Award,
   CheckCircle
 } from 'lucide-react';
+import { listRows, createRow } from '../utils/crudService';
+import { useAdmin } from '../contexts/AdminContext';
 
 const Testimonials = () => {
+  const { isAdmin } = useAdmin();
   const [activeCategory, setActiveCategory] = useState('all');
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({ name: '', role: '', company: '', content: '', rating: 5 });
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState('');
 
   const categories = [
     { id: 'all', label: 'All Testimonials' },
@@ -21,80 +30,47 @@ const Testimonials = () => {
     { id: 'machine-learning', label: 'Machine Learning' }
   ];
 
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      role: 'CEO',
-      company: 'TechStart Inc.',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
-      content: 'RyphTech transformed our business with their innovative web solution. The team is professional, responsive, and delivers exceptional results. Our e-commerce platform has seen a 300% increase in sales since launch.',
-      rating: 5,
-      category: 'web-development',
-      project: 'E-commerce Platform',
-      results: ['300% increase in sales', '50% reduction in cart abandonment', 'Improved user experience']
-    },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      role: 'Founder',
-      company: 'DataFlow Analytics',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
-      content: 'Their machine learning expertise helped us build a predictive analytics platform that increased our efficiency by 300%. The AI models they developed are incredibly accurate and have revolutionized our decision-making process.',
-      rating: 5,
-      category: 'machine-learning',
-      project: 'Predictive Analytics Platform',
-      results: ['300% increase in efficiency', '95% prediction accuracy', 'Automated decision making']
-    },
-    {
-      id: 3,
-      name: 'Emily Rodriguez',
-      role: 'Product Manager',
-      company: 'MobileFirst',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
-      content: 'The mobile app they developed exceeded our expectations. Clean code, great UI/UX, and excellent performance across all devices. Our user engagement has increased by 200% since the app launch.',
-      rating: 5,
-      category: 'mobile-development',
-      project: 'Fitness Tracking App',
-      results: ['200% increase in user engagement', '4.8/5 app store rating', 'Cross-platform compatibility']
-    },
-    {
-      id: 4,
-      name: 'David Thompson',
-      role: 'CTO',
-      company: 'RealEstate Pro',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-      content: 'RyphTech delivered a comprehensive property management system that streamlined our entire operation. The system is intuitive, scalable, and has significantly improved our team productivity.',
-      rating: 5,
-      category: 'web-development',
-      project: 'Property Management System',
-      results: ['40% increase in productivity', 'Streamlined operations', 'Improved client satisfaction']
-    },
-    {
-      id: 5,
-      name: 'Lisa Wang',
-      role: 'Operations Director',
-      company: 'FoodExpress',
-      image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
-      content: 'The food delivery app they built for us has been a game-changer. Real-time tracking, seamless payment integration, and excellent user experience. Our delivery times have improved by 35%.',
-      rating: 5,
-      category: 'mobile-development',
-      project: 'Food Delivery App',
-      results: ['35% improvement in delivery times', 'Enhanced user experience', 'Real-time tracking']
-    },
-    {
-      id: 6,
-      name: 'Robert Kim',
-      role: 'Head of Analytics',
-      company: 'CustomerInsight',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-      content: 'Their customer sentiment analysis system has provided us with invaluable insights. The AI models accurately analyze customer feedback and help us make data-driven decisions to improve our services.',
-      rating: 5,
-      category: 'machine-learning',
-      project: 'Customer Sentiment Analysis',
-      results: ['90% sentiment accuracy', 'Real-time insights', 'Data-driven decisions']
+  useEffect(() => { loadTestimonials(); }, []);
+
+  const loadTestimonials = async () => {
+    try {
+      const data = await listRows('testimonials');
+      setTestimonials(data);
+      setError('');
+    } catch (e) {
+      setError(e.message || 'Failed to load testimonials');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSuccess('');
+    setError('');
+    try {
+      await createRow('testimonials', { 
+        name: form.name,
+        role: form.role,
+        company: form.company,
+        content: form.content,
+        rating: Number(form.rating) || 5,
+        approved: false,
+      });
+      setForm({ name: '', role: '', company: '', content: '', rating: 5 });
+      setSuccess('Thank you! Your testimonial was submitted and is pending approval.');
+      await loadTestimonials();
+    } catch (e) {
+      setError(e.message || 'Failed to submit testimonial');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const filteredTestimonials = testimonials
+    .filter(t => isAdmin || t.approved)
+    .filter(testimonial => activeCategory === 'all' || testimonial.category === activeCategory);
 
   const caseStudies = [
     {
@@ -147,14 +123,6 @@ const Testimonials = () => {
     }
   ];
 
-  const filteredTestimonials = testimonials.filter(testimonial => 
-    activeCategory === 'all' || testimonial.category === activeCategory
-  );
-
-  const filteredCaseStudies = caseStudies.filter(caseStudy => 
-    activeCategory === 'all' || caseStudy.category === activeCategory
-  );
-
   const stats = [
     { number: '25+', label: 'Happy Clients', icon: Users },
     { number: '50+', label: 'Projects Completed', icon: CheckCircle },
@@ -181,6 +149,31 @@ const Testimonials = () => {
               working with RyphTech and the results we've delivered.
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Submit Testimonial */}
+      <section className="section-padding bg-white dark:bg-dark-800">
+        <div className="container-custom">
+          <div className="card p-6">
+            <h2 className="text-xl font-semibold mb-4">Share your experience</h2>
+            {success && <div className="mb-3 text-green-600">{success}</div>}
+            {error && <div className="mb-3 text-red-600">{error}</div>}
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input className="rounded-lg border border-gray-300 dark:border-dark-600 px-3 py-2 bg-white dark:bg-dark-700 text-gray-900 dark:text-white" placeholder="Your name" required value={form.name} onChange={(e)=>setForm({...form, name:e.target.value})} />
+              <input className="rounded-lg border border-gray-300 dark:border-dark-600 px-3 py-2 bg-white dark:bg-dark-700 text-gray-900 dark:text-white" placeholder="Your role" value={form.role} onChange={(e)=>setForm({...form, role:e.target.value})} />
+              <input className="rounded-lg border border-gray-300 dark:border-dark-600 px-3 py-2 bg-white dark:bg-dark-700 text-gray-900 dark:text-white" placeholder="Company" value={form.company} onChange={(e)=>setForm({...form, company:e.target.value})} />
+              <input className="rounded-lg border border-gray-300 dark:border-dark-600 px-3 py-2 bg-white dark:bg-dark-700 text-gray-900 dark:text-white" type="number" min={1} max={5} placeholder="Rating (1-5)" value={form.rating} onChange={(e)=>setForm({...form, rating:e.target.value})} />
+              <div className="md:col-span-2">
+                <textarea className="w-full rounded-lg border border-gray-300 dark:border-dark-600 px-3 py-2 bg-white dark:bg-dark-700 text-gray-900 dark:text-white" rows={4} placeholder="Write your testimonial..." required value={form.content} onChange={(e)=>setForm({...form, content:e.target.value})} />
+              </div>
+              <div className="md:col-span-2">
+                <button disabled={submitting} className="btn-primary">
+                  {submitting ? 'Submitting...' : 'Submit Testimonial'}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
 
@@ -255,7 +248,7 @@ const Testimonials = () => {
                 className="card p-6"
               >
                 <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
+                  {[...Array(testimonial.rating || 5)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
@@ -269,29 +262,15 @@ const Testimonials = () => {
 
                 <div className="flex items-center mb-4">
                   <img
-                    src={testimonial.image}
+                    src={testimonial.image_url || 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face'}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover mr-4"
                   />
                   <div>
                     <div className="font-semibold">{testimonial.name}</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
-                      {testimonial.role}, {testimonial.company}
+                      {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}
                     </div>
-                  </div>
-                </div>
-
-                <div className="border-t pt-4">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Project: {testimonial.project}
-                  </div>
-                  <div className="space-y-1">
-                    {testimonial.results.map((result, i) => (
-                      <div key={i} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                        <CheckCircle className="w-4 h-4 text-primary-600 mr-2 flex-shrink-0" />
-                        {result}
-                      </div>
-                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -319,7 +298,7 @@ const Testimonials = () => {
           </motion.div>
 
           <div className="space-y-12">
-            {filteredCaseStudies.map((caseStudy, index) => (
+            {caseStudies.map((caseStudy, index) => (
               <motion.div
                 key={caseStudy.id}
                 initial={{ opacity: 0, y: 30 }}

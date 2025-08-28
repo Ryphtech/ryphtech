@@ -11,8 +11,24 @@ import {
   CheckCircle,
   Play
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { listRows } from '../utils/crudService';
 
 const Home = () => {
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await listRows('testimonials');
+        const approved = (data || []).filter(t => t.approved);
+        setTestimonials(approved.slice(0, 3));
+      } catch {
+        setTestimonials([]);
+      }
+    })();
+  }, []);
+
   const services = [
     {
       icon: Globe,
@@ -39,27 +55,6 @@ const Home = () => {
     { number: '25+', label: 'Happy Clients', icon: Users },
     { number: '4.9', label: 'Client Rating', icon: Star },
     { number: '24/7', label: 'Support Available', icon: CheckCircle }
-  ];
-
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      role: 'CEO, TechStart Inc.',
-      content: 'RyphTech transformed our business with their innovative web solution. The team is professional, responsive, and delivers exceptional results.',
-      rating: 5
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Founder, DataFlow Analytics',
-      content: 'Their machine learning expertise helped us build a predictive analytics platform that increased our efficiency by 300%. Highly recommended!',
-      rating: 5
-    },
-    {
-      name: 'Emily Rodriguez',
-      role: 'Product Manager, MobileFirst',
-      content: 'The mobile app they developed exceeded our expectations. Clean code, great UI/UX, and excellent performance across all devices.',
-      rating: 5
-    }
   ];
 
   return (
@@ -207,7 +202,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
-                key={testimonial.name}
+                key={testimonial.id || testimonial.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -215,7 +210,7 @@ const Home = () => {
                 className="card p-6"
               >
                 <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
+                  {[...Array(testimonial.rating || 5)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
@@ -224,7 +219,7 @@ const Home = () => {
                 </p>
                 <div>
                   <div className="font-semibold">{testimonial.name}</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}</div>
                 </div>
               </motion.div>
             ))}
