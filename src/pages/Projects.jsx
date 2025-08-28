@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ExternalLink, 
@@ -7,12 +7,20 @@ import {
   Smartphone, 
   Brain,
   Filter,
-  Search
+  Search,
+  Plus
 } from 'lucide-react';
+import { useAdmin } from '../contexts/AdminContext';
+import AdminOverlay from '../components/AdminOverlay';
+import { listRows } from '../utils/crudService';
 
 const Projects = () => {
+  const { isAdmin } = useAdmin();
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const filters = [
     { id: 'all', label: 'All Projects' },
@@ -21,104 +29,73 @@ const Projects = () => {
     { id: 'ai', label: 'Machine Learning' }
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      category: 'web',
-      description: 'A modern e-commerce platform built with React and Node.js, featuring advanced search, payment integration, and admin dashboard.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['User Authentication', 'Product Management', 'Payment Processing', 'Order Tracking']
-    },
-    {
-      id: 2,
-      title: 'Fitness Tracking App',
-      category: 'mobile',
-      description: 'Cross-platform mobile app for fitness tracking with workout plans, progress monitoring, and social features.',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop',
-      technologies: ['React Native', 'Firebase', 'Redux', 'Expo'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Workout Tracking', 'Progress Analytics', 'Social Features', 'Offline Mode']
-    },
-    {
-      id: 3,
-      title: 'Predictive Analytics Dashboard',
-      category: 'ai',
-      description: 'AI-powered analytics platform that provides predictive insights for business decision making.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-      technologies: ['Python', 'TensorFlow', 'React', 'FastAPI'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Data Visualization', 'Predictive Models', 'Real-time Analytics', 'Custom Reports']
-    },
-    {
-      id: 4,
-      title: 'Real Estate Management System',
-      category: 'web',
-      description: 'Comprehensive property management system with listing management, client portal, and financial tracking.',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop',
-      technologies: ['Next.js', 'PostgreSQL', 'Prisma', 'AWS'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Property Listings', 'Client Portal', 'Financial Tracking', 'Document Management']
-    },
-    {
-      id: 5,
-      title: 'Food Delivery App',
-      category: 'mobile',
-      description: 'Mobile application for food delivery with real-time tracking, payment integration, and restaurant management.',
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=600&h=400&fit=crop',
-      technologies: ['Flutter', 'Node.js', 'MongoDB', 'Socket.io'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Real-time Tracking', 'Payment Integration', 'Restaurant Dashboard', 'Order Management']
-    },
-    {
-      id: 6,
-      title: 'Customer Sentiment Analysis',
-      category: 'ai',
-      description: 'Machine learning system that analyzes customer feedback and provides sentiment insights for business improvement.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-      technologies: ['Python', 'NLTK', 'Scikit-learn', 'Django'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Text Analysis', 'Sentiment Scoring', 'Trend Detection', 'Automated Reports']
-    },
-    {
-      id: 7,
-      title: 'Learning Management System',
-      category: 'web',
-      description: 'Educational platform with course management, student progress tracking, and interactive learning tools.',
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop',
-      technologies: ['React', 'Django', 'PostgreSQL', 'Redis'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Course Management', 'Student Progress', 'Interactive Tools', 'Assessment System']
-    },
-    {
-      id: 8,
-      title: 'Smart Home Control App',
-      category: 'mobile',
-      description: 'IoT mobile application for controlling smart home devices with automation and energy monitoring.',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
-      technologies: ['React Native', 'MQTT', 'Node.js', 'MongoDB'],
-      liveUrl: '#',
-      githubUrl: '#',
-      features: ['Device Control', 'Automation Rules', 'Energy Monitoring', 'Security Features']
-    }
+  const projectFields = [
+    { key: 'title', label: 'Title' },
+    { key: 'category', label: 'Category' },
+    { key: 'description', label: 'Description' },
+    { key: 'image_url', label: 'Image URL' },
+    { key: 'technologies', label: 'Technologies' },
+    { key: 'live_url', label: 'Live URL' },
+    { key: 'github_url', label: 'GitHub URL' },
+    { key: 'features', label: 'Features' }
   ];
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const loadProjects = async () => {
+    try {
+      const data = await listRows('projects');
+      setProjects(data || []);
+      setError(null);
+    } catch (error) {
+      console.error('Error loading projects:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
 
   const filteredProjects = projects.filter(project => {
     const matchesFilter = activeFilter === 'all' || project.category === activeFilter;
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+                         (Array.isArray(project.technologies) && project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase())));
     return matchesFilter && matchesSearch;
   });
+
+  if (loading) {
+    return (
+      <div className="pt-16 flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading projects...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="pt-16 flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="text-red-600 mb-4">
+            <p className="text-lg font-semibold">Error loading projects</p>
+            <p className="text-sm">{error}</p>
+          </div>
+          <button 
+            onClick={loadProjects}
+            className="btn-primary"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const getCategoryIcon = (category) => {
     switch (category) {
@@ -147,6 +124,20 @@ const Projects = () => {
               Explore our portfolio of successful projects that showcase our expertise 
               in web development, app development, and machine learning.
             </p>
+            {isAdmin && (
+              <div className="mt-6">
+                <button 
+                  className="btn-primary inline-flex items-center"
+                  onClick={() => {
+                    // Navigate to admin projects page to add new project
+                    window.location.href = '/admin/projects';
+                  }}
+                >
+                  <Plus className="mr-2 w-5 h-5" />
+                  Add Project
+                </button>
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
@@ -195,83 +186,110 @@ const Projects = () => {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="card overflow-hidden group"
-                >
-                  {/* Project Image */}
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute bottom-4 left-4 right-4 flex gap-2">
-                        <a
-                          href={project.liveUrl}
-                          className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
-                        >
-                          <ExternalLink className="w-5 h-5 text-white" />
-                        </a>
-                        <a
-                          href={project.githubUrl}
-                          className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
-                        >
-                          <Github className="w-5 h-5 text-white" />
-                        </a>
+              {filteredProjects.map((project, index) => {
+                const projectCard = (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="card overflow-hidden group"
+                  >
+                    {/* Project Image */}
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={project.image_url || 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop'}
+                        alt={project.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-4 left-4 right-4 flex gap-2">
+                          {project.live_url && (
+                            <a
+                              href={project.live_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+                            >
+                              <ExternalLink className="w-5 h-5 text-white" />
+                            </a>
+                          )}
+                          {project.github_url && (
+                            <a
+                              href={project.github_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+                            >
+                              <Github className="w-5 h-5 text-white" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                          {React.createElement(getCategoryIcon(project.category), { className: "w-5 h-5 text-white" })}
+                        </div>
                       </div>
                     </div>
-                    <div className="absolute top-4 right-4">
-                      <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                        {React.createElement(getCategoryIcon(project.category), { className: "w-5 h-5 text-white" })}
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Project Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-3 group-hover:text-primary-600 transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                      {project.description}
-                    </p>
+                    {/* Project Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-3 group-hover:text-primary-600 transition-colors duration-300">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                        {project.description}
+                      </p>
 
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Features */}
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Key Features:</h4>
-                      <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                        {project.features.slice(0, 3).map((feature) => (
-                          <li key={feature} className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-2"></div>
-                            {feature}
-                          </li>
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {Array.isArray(project.technologies) && project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded text-xs font-medium"
+                          >
+                            {tech}
+                          </span>
                         ))}
-                        {project.features.length > 3 && (
-                          <li className="text-primary-600 text-xs">+{project.features.length - 3} more features</li>
-                        )}
-                      </ul>
+                      </div>
+
+                      {/* Features */}
+                      <div className="space-y-2">
+                        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Key Features:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                          {Array.isArray(project.features) && project.features.slice(0, 3).map((feature) => (
+                            <li key={feature} className="flex items-center">
+                              <div className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-2"></div>
+                              {feature}
+                            </li>
+                          ))}
+                          {Array.isArray(project.features) && project.features.length > 3 && (
+                            <li className="text-primary-600 text-xs">+{project.features.length - 3} more features</li>
+                          )}
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+
+                // Only wrap with AdminOverlay if user is admin
+                return isAdmin ? (
+                  <AdminOverlay
+                    key={project.id}
+                    table="projects"
+                    item={project}
+                    fields={projectFields}
+                    onUpdate={loadProjects}
+                    onDelete={loadProjects}
+                    className=""
+                  >
+                    {projectCard}
+                  </AdminOverlay>
+                ) : (
+                  projectCard
+                );
+              })}
             </motion.div>
           </AnimatePresence>
 

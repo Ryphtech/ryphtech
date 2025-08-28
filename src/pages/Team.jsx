@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Linkedin, 
@@ -8,10 +8,43 @@ import {
   Award,
   Users,
   Zap,
-  Heart
+  Heart,
+  Plus
 } from 'lucide-react';
+import { useAdmin } from '../contexts/AdminContext';
+import AdminOverlay from '../components/AdminOverlay';
+import { listRows } from '../utils/crudService';
 
 const Team = () => {
+  const { isAdmin } = useAdmin();
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const teamFields = [
+    { key: 'name', label: 'Name' },
+    { key: 'role', label: 'Role' },
+    { key: 'photo_url', label: 'Photo URL' },
+    { key: 'linkedin_url', label: 'LinkedIn URL' }
+  ];
+
+  useEffect(() => {
+    loadTeamMembers();
+  }, []);
+
+  const loadTeamMembers = async () => {
+    try {
+      const data = await listRows('team');
+      setTeamMembers(data || []);
+      setError(null);
+    } catch (error) {
+      console.error('❌ Error loading team members:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const founders = [
     {
       name: 'Thanzeer J',
@@ -41,80 +74,6 @@ const Team = () => {
     }
   ];
 
-  const teamMembers = [
-    {
-      name: 'Sarah Chen',
-      role: 'Senior Web Developer',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
-      bio: 'Full-stack developer with 5+ years of experience in React, Node.js, and cloud technologies.',
-      skills: ['React', 'Node.js', 'AWS', 'TypeScript'],
-      social: {
-        linkedin: 'https://linkedin.com/in/sarah-chen',
-        github: 'https://github.com/sarah-chen',
-        email: 'sarah@ryphtech.com'
-      }
-    },
-    {
-      name: 'Michael Rodriguez',
-      role: 'Mobile App Developer',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
-      bio: 'Experienced mobile developer specializing in React Native and Flutter applications.',
-      skills: ['React Native', 'Flutter', 'iOS', 'Android'],
-      social: {
-        linkedin: 'https://linkedin.com/in/michael-rodriguez',
-        github: 'https://github.com/michael-rodriguez',
-        email: 'michael@ryphtech.com'
-      }
-    },
-    {
-      name: 'Emily Watson',
-      role: 'Machine Learning Engineer',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
-      bio: 'ML specialist with expertise in Python, TensorFlow, and deploying AI solutions in production.',
-      skills: ['Python', 'TensorFlow', 'PyTorch', 'MLOps'],
-      social: {
-        linkedin: 'https://linkedin.com/in/emily-watson',
-        github: 'https://github.com/emily-watson',
-        email: 'emily@ryphtech.com'
-      }
-    },
-    {
-      name: 'David Kim',
-      role: 'UI/UX Designer',
-      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face',
-      bio: 'Creative designer focused on creating intuitive and engaging user experiences.',
-      skills: ['Figma', 'Adobe Creative Suite', 'User Research', 'Prototyping'],
-      social: {
-        linkedin: 'https://linkedin.com/in/david-kim',
-        behance: 'https://behance.net/david-kim',
-        email: 'david@ryphtech.com'
-      }
-    },
-    {
-      name: 'Lisa Thompson',
-      role: 'DevOps Engineer',
-      image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
-      bio: 'DevOps specialist ensuring smooth deployment and infrastructure management.',
-      skills: ['Docker', 'Kubernetes', 'AWS', 'CI/CD'],
-      social: {
-        linkedin: 'https://linkedin.com/in/lisa-thompson',
-        github: 'https://github.com/lisa-thompson',
-        email: 'lisa@ryphtech.com'
-      }
-    },
-    {
-      name: 'Alex Johnson',
-      role: 'Project Manager',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-      bio: 'Experienced project manager ensuring timely delivery and client satisfaction.',
-      skills: ['Agile', 'Scrum', 'Client Communication', 'Risk Management'],
-      social: {
-        linkedin: 'https://linkedin.com/in/alex-johnson',
-        email: 'alex@ryphtech.com'
-      }
-    }
-  ];
-
   const values = [
     {
       icon: Heart,
@@ -137,6 +96,36 @@ const Team = () => {
       description: 'We strive for excellence in everything we do, from code quality to client relationships.'
     }
   ];
+
+  if (loading) {
+    return (
+      <div className="pt-16 flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading team members...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="pt-16 flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="text-red-600 mb-4">
+            <p className="text-lg font-semibold">Error loading team members</p>
+            <p className="text-sm">{error}</p>
+          </div>
+          <button 
+            onClick={loadTeamMembers}
+            className="btn-primary"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-16">
@@ -283,77 +272,89 @@ const Team = () => {
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Meet the talented individuals who make RyphTech a success.
             </p>
+            {isAdmin && (
+              <div className="mt-4">
+                <AdminOverlay
+                  table="team"
+                  fields={teamFields}
+                  onAdd={loadTeamMembers}
+                  className="inline-block"
+                >
+                  <button className="btn-primary inline-flex items-center">
+                    <Plus className="mr-2 w-5 h-5" />
+                    Add Team Member
+                  </button>
+                </AdminOverlay>
+              </div>
+            )}
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="card p-6 text-center group"
-              >
-                <div className="mb-6">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-32 h-32 rounded-full mx-auto object-cover shadow-lg group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
 
-                <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                <p className="text-primary-600 dark:text-primary-400 font-medium mb-4">{member.role}</p>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
-                  {member.bio}
-                </p>
 
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-1 justify-center">
-                    {member.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-2 py-1 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 rounded text-xs"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <div className="text-gray-500">
+                  <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                  <p className="text-lg font-medium">No team members found</p>
+                  <p className="text-sm">Team members will appear here once added.</p>
                 </div>
+              </div>
+            ) : (
+              teamMembers.map((member, index) => {
+                const memberCard = (
+                  <motion.div
+                    key={member.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="card p-6 text-center group"
+                  >
+                    <div className="mb-6">
+                      <img
+                        src={member.photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'}
+                        alt={member.name}
+                        className="w-32 h-32 rounded-full mx-auto object-cover shadow-lg group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
 
-                <div className="flex justify-center space-x-3">
-                  {member.social.linkedin && (
-                    <a
-                      href={member.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded flex items-center justify-center transition-all duration-300"
-                    >
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.social.github && (
-                    <a
-                      href={member.social.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded flex items-center justify-center transition-all duration-300"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.social.email && (
-                    <a
-                      href={`mailto:${member.social.email}`}
-                      className="w-8 h-8 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded flex items-center justify-center transition-all duration-300"
-                    >
-                      <Mail className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                    <h3 className="text-xl font-bold mb-2">{member.name}</h3>
+                    <p className="text-primary-600 dark:text-primary-400 font-medium mb-4">{member.role}</p>
+
+                    <div className="flex justify-center space-x-3">
+                      {member.linkedin_url && (
+                        <a
+                          href={member.linkedin_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded flex items-center justify-center transition-all duration-300"
+                        >
+                          <Linkedin className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+
+                // Only wrap with AdminOverlay if user is admin
+                return isAdmin ? (
+                  <AdminOverlay
+                    key={member.id}
+                    table="team"
+                    item={member}
+                    fields={teamFields}
+                    onUpdate={loadTeamMembers}
+                    onDelete={loadTeamMembers}
+                    className=""
+                  >
+                    {memberCard}
+                  </AdminOverlay>
+                ) : (
+                  memberCard
+                );
+              })
+            )}
           </div>
         </div>
       </section>
