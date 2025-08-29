@@ -11,6 +11,7 @@ import {
   Plus
 } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
+import BackToHome from '../components/BackToHome';
 import AdminOverlay from '../components/AdminOverlay';
 import { listRows } from '../utils/crudService';
 
@@ -108,6 +109,9 @@ const Projects = () => {
 
   return (
     <div className="pt-16">
+      <div className="py-4 bg-transparent">
+        <BackToHome />
+      </div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
         <div className="container-custom">

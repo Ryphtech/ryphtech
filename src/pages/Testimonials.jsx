@@ -10,6 +10,7 @@ import {
   Award,
   CheckCircle
 } from 'lucide-react';
+import BackToHome from '../components/BackToHome';
 import { listRows, createRow } from '../utils/crudService';
 import { useAdmin } from '../contexts/AdminContext';
 
@@ -132,6 +133,9 @@ const Testimonials = () => {
 
   return (
     <div className="pt-16">
+      <div className="py-4 bg-transparent">
+        <BackToHome />
+      </div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
         <div className="container-custom">
