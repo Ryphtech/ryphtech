@@ -120,13 +120,13 @@ const Home = () => {
               Trusted by 25+ Clients Worldwide
             </motion.div>
 
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-poppins tracking-tight leading-[1.1] sm:leading-[1.08] md:leading-[1.06] mb-3 md:mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-poppins tracking-tight leading-[1.1] sm:leading-[1.08] md:leading-[1.06] mb-3 md:mb-6 px-2">
               <BlurText
                 text="Transforming Ideas Into"
                 delay={150}
                 animateBy="words"
                 direction="top"
-                className="text-2xl pl-27 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-poppins tracking-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-poppins tracking-tight block mb-2"
               />
               <span className="block gradient-text mb-2 md:mb-3">Digital Reality</span>
             </h1>
@@ -136,7 +136,7 @@ const Home = () => {
               duration={0.8}
               speed={0.3}
               scrambleChars=".:"
-              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8 mx-auto max-w-4xl px-2"
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8 mx-auto max-w-4xl px-4 sm:px-6"
             >
               RyphTech delivers cutting-edge web development, app development, and machine learning solutions that drive business growth and innovation.
             </ScrambledText>
@@ -146,28 +146,28 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-wrap justify-center gap-3 md:gap-6 mb-6 md:mb-8"
+              className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mb-6 md:mb-8 px-4"
             >
-              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-2 text-sm md:text-base text-gray-500 dark:text-gray-400">
                 <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
                 <span>4.9/5 Client Rating</span>
               </div>
-              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-2 text-sm md:text-base text-gray-500 dark:text-gray-400">
                 <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                 <span>50+ Projects Completed</span>
               </div>
-              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-2 text-sm md:text-base text-gray-500 dark:text-gray-400">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span>24/7 Support</span>
               </div>
             </motion.div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 md:mb-12">
-              <Link to="/contact" className="btn-primary inline-flex items-center justify-center group">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 justify-center mb-8 md:mb-12 px-4">
+              <Link to="/contact" className="btn-primary inline-flex items-center justify-center group w-full sm:w-auto text-center">
                 Start Your Project
                 <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/projects" className="btn-secondary inline-flex items-center justify-center group">
+              <Link to="/projects" className="btn-secondary inline-flex items-center justify-center group w-full sm:w-auto text-center">
                 View Our Work
                 <Play className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:scale-110" />
               </Link>
@@ -179,7 +179,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-8 md:mt-12 lg:mt-16"
+            className="mt-8 md:mt-12 lg:mt-16 px-4"
           >
             <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-6">Powered by cutting-edge technologies</p>
             <LogoLoop
