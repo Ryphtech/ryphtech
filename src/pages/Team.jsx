@@ -18,6 +18,8 @@ import { useAdmin } from '../contexts/AdminContext';
 import AdminOverlay from '../components/AdminOverlay';
 import { listRows } from '../utils/crudService';
 import ProfileCard from '../blocks/Components/ProfileCard/ProfileCard';
+import DevdarshImage from '../assets/Co-Founders/Devdarsh.jpg';
+import ThanzeerImage from '../assets/Co-Founders/Thanzeer.jpg';
 
 const Team = () => {
   const { isAdmin } = useAdmin();
@@ -54,7 +56,7 @@ const Team = () => {
       name: 'Devdarsh M',
       role: 'Co-Founder & CEO',
       handle: 'devdarsh',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+      image: DevdarshImage,
       bio: 'Visionary leader with expertise in web development and business strategy. Passionate about creating innovative solutions that drive business growth.',
       skills: ['Web Development', 'Business Strategy', 'Product Management', 'Team Leadership'],
       social: {
@@ -68,7 +70,7 @@ const Team = () => {
       name: 'Thanzeer J',
       role: 'Co-Founder & CTO',
       handle: 'thanzeer',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+      image: ThanzeerImage,
       bio: 'Technical expert specializing in mobile development and machine learning. Committed to building scalable, cutting-edge technology solutions.',
       skills: ['Mobile Development', 'Machine Learning', 'System Architecture', 'Technical Leadership'],
       social: {
