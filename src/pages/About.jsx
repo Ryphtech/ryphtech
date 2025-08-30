@@ -67,11 +67,11 @@ const About = () => {
 
   return (
     <div className="pt-16">
-      <div className="py-4 bg-transparent">
+      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
         <BackToHome />
       </div>
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
+      <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -91,7 +91,7 @@ const About = () => {
       </section>
 
       {/* Story Section */}
-      <section className="section-padding bg-white dark:bg-dark-800">
+      <section className="section-padding bg-white dark:bg-black">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -131,12 +131,12 @@ const About = () => {
               className="relative"
             >
               <div className="bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+                <h3 className="text-2xl font-bold font-poppins mb-4">Our Mission</h3>
                 <p className="text-lg mb-6">
                   To empower businesses with innovative technology solutions that drive growth, 
                   efficiency, and competitive advantage in the digital age.
                 </p>
-                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+                <h3 className="text-2xl font-bold font-poppins mb-4">Our Vision</h3>
                 <p className="text-lg">
                   To be the leading technology partner for businesses seeking to transform 
                   their digital presence and achieve sustainable growth through innovation.
@@ -148,7 +148,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="section-padding bg-gray-50 dark:bg-dark-900">
+      <section className="section-padding bg-gray-50 dark:bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -213,7 +213,7 @@ const About = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="section-padding bg-white dark:bg-dark-800">
+      <section className="section-padding bg-white dark:bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -264,7 +264,7 @@ const About = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-gray-50 dark:bg-dark-900">
+      <section className="section-padding bg-gray-50 dark:bg-black">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

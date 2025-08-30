@@ -8,8 +8,7 @@ export default {
     extend: {
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
-        'inter': ['Inter', 'sans-serif'],
-        'urbanist': ['Urbanist', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
       },
       colors: {
         primary: {

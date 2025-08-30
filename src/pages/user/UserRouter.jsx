@@ -9,6 +9,7 @@ import Team from '../Team';
 import Testimonials from '../Testimonials';
 import Contact from '../Contact';
 
+
 export default function UserRouter() {
   return (
     <UserLayout>
@@ -20,8 +21,10 @@ export default function UserRouter() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/team" element={<Team />} />
         <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+                <Route path="/contact" element={<Contact />} />
+
+
+       </Routes>
     </UserLayout>
   );
 }

@@ -109,7 +109,7 @@ const Projects = () => {
 
   return (
     <div className="pt-16">
-      <div className="py-4 bg-transparent">
+      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
         <BackToHome />
       </div>
       {/* Hero Section */}

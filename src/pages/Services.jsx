@@ -115,7 +115,7 @@ const Services = () => {
 
   return (
     <div className="pt-16">
-      <div className="py-4 bg-transparent">
+      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
         <BackToHome />
       </div>
       {/* Hero Section */}
@@ -160,7 +160,7 @@ const Services = () => {
                 </p>
 
                 <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4">Key Features</h3>
+                  <h3 className="text-xl font-semibold font-poppins mb-4">Key Features</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {service.features.map((feature) => (
                       <div key={feature} className="flex items-center">
@@ -172,7 +172,7 @@ const Services = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold mb-4">Technologies</h3>
+                  <h3 className="text-xl font-semibold font-poppins mb-4">Technologies</h3>
                   <div className="flex flex-wrap gap-2">
                     {service.technologies.map((tech) => (
                       <span
@@ -194,7 +194,7 @@ const Services = () => {
                 className={serviceIndex % 2 === 0 ? 'lg:order-2' : ''}
               >
                 <div className="bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl p-8 text-white">
-                  <h3 className="text-2xl font-bold mb-6">Our Process</h3>
+                  <h3 className="text-2xl font-bold font-poppins mb-6">Our Process</h3>
                   <div className="space-y-6">
                     {service.process.map((step) => (
                       <div key={step.step} className="flex items-start">

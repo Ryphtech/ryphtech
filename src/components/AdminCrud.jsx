@@ -68,7 +68,7 @@ export default function AdminCrud({ table, columns, idColumn = 'id', title }) {
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      <h1 className="mb-6 text-2xl font-semibold">{title || `Manage ${table}`}</h1>
+              <h1 className="mb-6 text-2xl font-semibold font-poppins">{title || `Manage ${table}`}</h1>
 
       {error && (
         <div className="mb-4 rounded border border-red-400 bg-red-50 p-3 text-red-700">{error}</div>

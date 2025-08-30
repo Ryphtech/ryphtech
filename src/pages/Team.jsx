@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import GlareHover from '../blocks/Animations/GlareHover/GlareHover';
+import ChromaGrid from '../blocks/Components/ChromaGrid/ChromaGrid';
 import { 
   Linkedin, 
   Github, 
@@ -15,6 +17,7 @@ import BackToHome from '../components/BackToHome';
 import { useAdmin } from '../contexts/AdminContext';
 import AdminOverlay from '../components/AdminOverlay';
 import { listRows } from '../utils/crudService';
+import ProfileCard from '../blocks/Components/ProfileCard/ProfileCard';
 
 const Team = () => {
   const { isAdmin } = useAdmin();
@@ -48,29 +51,31 @@ const Team = () => {
 
   const founders = [
     {
-      name: 'Thanzeer J',
+      name: 'Devdarsh M',
       role: 'Co-Founder & CEO',
+      handle: 'devdarsh',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
       bio: 'Visionary leader with expertise in web development and business strategy. Passionate about creating innovative solutions that drive business growth.',
       skills: ['Web Development', 'Business Strategy', 'Product Management', 'Team Leadership'],
       social: {
-        linkedin: 'https://linkedin.com/in/thanzeer-j',
-        github: 'https://github.com/thanzeer-j',
-        email: 'thanzeer@ryphtech.com',
-        website: 'https://thanzeer.dev'
+        linkedin: 'https://linkedin.com/in/devsarsh',
+        github: 'https://github.com/devdarsh',
+        email: 'devdarsh@ryphtech.com',
+        website: 'https://devdarsh.dev'
       }
     },
     {
-      name: 'Devdarsh M',
+      name: 'Thanzeer J',
       role: 'Co-Founder & CTO',
+      handle: 'thanzeer',
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
       bio: 'Technical expert specializing in mobile development and machine learning. Committed to building scalable, cutting-edge technology solutions.',
       skills: ['Mobile Development', 'Machine Learning', 'System Architecture', 'Technical Leadership'],
       social: {
-        linkedin: 'https://linkedin.com/in/devdarsh-m',
-        github: 'https://github.com/devdarsh-m',
-        email: 'devdarsh@ryphtech.com',
-        website: 'https://devdarsh.dev'
+        linkedin: 'https://linkedin.com/in/thanzeer',
+        github: 'https://github.com/thanzeer',
+        email: 'thanzeer@ryphtech.com',
+        website: 'https://thanzeer.dev'
       }
     }
   ];
@@ -130,7 +135,7 @@ const Team = () => {
 
   return (
     <div className="pt-16">
-      <div className="py-4 bg-transparent">
+      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
         <BackToHome />
       </div>
       {/* Hero Section */}
@@ -154,7 +159,7 @@ const Team = () => {
       </section>
 
       {/* Founders Section */}
-      <section className="section-padding bg-white dark:bg-dark-800">
+      <section className="section-padding bg-white dark:bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -179,80 +184,88 @@ const Team = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="card p-8 text-center"
+                className="flex flex-col lg:flex-row items-start justify-center gap-8"
               >
-                <div className="relative mb-8">
-                  <img
-                    src={founder.image}
-                    alt={founder.name}
-                    className="w-48 h-48 rounded-full mx-auto object-cover shadow-lg"
-                  />
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full flex items-center justify-center">
-                      <Award className="w-5 h-5 text-white" />
+                <ProfileCard
+                
+                  avatarUrl={founder.image}
+                  name={founder.name}
+                  title={founder.role}
+                  handle={founder.handle}
+                  status={founder.role}
+                  contactText="Contact"
+                  onContactClick={() => {
+                    if (founder.social?.email) {
+                      window.location.href = `mailto:${founder.social.email}`;
+                    } else if (founder.social?.linkedin) {
+                      window.open(founder.social.linkedin, '_blank', 'noopener,noreferrer');
+                    }
+                  }}
+                  className="pc-sm max-w-[320px] w-full card p-6 text-center"
+                />
+                <div className="mt-6 lg:mt-0 max-w-[640px] w-full text-left lg:text-left mx-auto lg:mx-0">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                    {founder.bio}
+                  </p>
+
+                  <div className="mb-5">
+                    <h4 className="font-semibold font-poppins mb-3">Expertise</h4>
+                    <div className="flex flex-wrap gap-2 justify-start">
+                      {founder.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                        >
+                          {skill}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </div>
 
-                <h3 className="text-2xl font-bold mb-2">{founder.name}</h3>
-                <p className="text-primary-600 dark:text-primary-400 font-medium mb-4">{founder.role}</p>
-                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                  {founder.bio}
-                </p>
-
-                <div className="mb-6">
-                  <h4 className="font-semibold mb-3">Expertise</h4>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {founder.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  <div className="flex justify-start space-x-4">
+                    {founder.social.linkedin && (
+                      <a
+                        href={founder.social.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
+                        aria-label={`${founder.name} on LinkedIn`}
                       >
-                        {skill}
-                      </span>
-                    ))}
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                    )}
+                    {founder.social.github && (
+                      <a
+                        href={founder.social.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
+                        aria-label={`${founder.name} on GitHub`}
+                      >
+                        <Github className="w-5 h-5" />
+                      </a>
+                    )}
+                    {founder.social.email && (
+                      <a
+                        href={`mailto:${founder.social.email}`}
+                        className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
+                        aria-label={`Email ${founder.name}`}
+                      >
+                        <Mail className="w-5 h-5" />
+                      </a>
+                    )}
+                    {founder.social.website && (
+                      <a
+                        href={founder.social.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
+                        aria-label={`${founder.name} website`}
+                      >
+                        <Globe className="w-5 h-5" />
+                      </a>
+                    )}
                   </div>
-                </div>
-
-                <div className="flex justify-center space-x-4">
-                  {founder.social.linkedin && (
-                    <a
-                      href={founder.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                  )}
-                  {founder.social.github && (
-                    <a
-                      href={founder.social.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                  )}
-                  {founder.social.email && (
-                    <a
-                      href={`mailto:${founder.social.email}`}
-                      className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
-                    >
-                      <Mail className="w-5 h-5" />
-                    </a>
-                  )}
-                  {founder.social.website && (
-                    <a
-                      href={founder.social.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded-lg flex items-center justify-center transition-all duration-300"
-                    >
-                      <Globe className="w-5 h-5" />
-                    </a>
-                  )}
                 </div>
               </motion.div>
             ))}
@@ -261,7 +274,7 @@ const Team = () => {
       </section>
 
       {/* Team Members Section */}
-      <section className="section-padding bg-gray-50 dark:bg-dark-900">
+      <section className="section-padding bg-gray-50 dark:bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -292,74 +305,32 @@ const Team = () => {
               </div>
             )}
           </motion.div>
-
-
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.length === 0 ? (
-              <div className="col-span-full text-center py-12">
-                <div className="text-gray-500">
-                  <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg font-medium">No team members found</p>
-                  <p className="text-sm">Team members will appear here once added.</p>
-                </div>
+          
+          {teamMembers.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-gray-500">
+                <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <p className="text-lg font-medium">No team members found</p>
+                <p className="text-sm">Team members will appear here once added.</p>
               </div>
-            ) : (
-              teamMembers.map((member, index) => {
-                const memberCard = (
-                  <motion.div
-                    key={member.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="card p-6 text-center group"
-                  >
-                    <div className="mb-6">
-                      <img
-                        src={member.photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'}
-                        alt={member.name}
-                        className="w-32 h-32 rounded-full mx-auto object-cover shadow-lg group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-
-                    <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                    <p className="text-primary-600 dark:text-primary-400 font-medium mb-4">{member.role}</p>
-
-                    <div className="flex justify-center space-x-3">
-                      {member.linkedin_url && (
-                        <a
-                          href={member.linkedin_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-8 h-8 bg-gray-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white rounded flex items-center justify-center transition-all duration-300"
-                        >
-                          <Linkedin className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                  </motion.div>
-                );
-
-                // Only wrap with AdminOverlay if user is admin
-                return isAdmin ? (
-                  <AdminOverlay
-                    key={member.id}
-                    table="team"
-                    item={member}
-                    fields={teamFields}
-                    onUpdate={loadTeamMembers}
-                    onDelete={loadTeamMembers}
-                    className=""
-                  >
-                    {memberCard}
-                  </AdminOverlay>
-                ) : (
-                  memberCard
-                );
-              })
-            )}
-          </div>
+            </div>
+          ) : (
+            (() => {
+              const palette = ['#7c3aed','#06b6d4','#10b981','#f59e0b','#ef4444','#8b5cf6'];
+              const items = teamMembers.map((m, i) => ({
+                image: m.photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+                title: m.name,
+                subtitle: m.role,
+                handle: m.linkedin_url ? '@' + (m.name || '').split(' ')[0].toLowerCase() : '',
+                borderColor: palette[i % palette.length],
+                gradient: `linear-gradient(165deg, ${palette[i % palette.length]}, #000)`,
+                url: m.linkedin_url || undefined,
+              }));
+              return (
+                <ChromaGrid items={items} className="justify-center" radius={280} />
+              );
+            })()
+          )}
         </div>
       </section>
 

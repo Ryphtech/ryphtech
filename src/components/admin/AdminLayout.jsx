@@ -23,7 +23,7 @@ export default function AdminLayout({ children, currentPage }) {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-xl font-bold font-poppins text-gray-900 dark:text-white">
                   RyphTech <span className="text-primary-600">Admin</span>
                 </h1>
               </div>

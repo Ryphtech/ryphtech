@@ -1,21 +1,29 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  ArrowRight, 
-  Globe, 
-  Smartphone, 
-  Brain, 
-  Star, 
-  Users, 
+import DarkVeil from '../blocks/Backgrounds/DarkVeil/DarkVeil';
+import {
+  ArrowRight,
+  Globe,
+  Smartphone,
+  Brain,
+  Star,
+  Users,
   Award,
   CheckCircle,
   Play
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { listRows } from '../utils/crudService';
+import BlurText from "../blocks/TextAnimations/BlurText/BlurText";
+
+import LogoLoop from '../blocks/Animations/LogoLoop/LogoLoop';
+import ScrambledText from '../blocks/TextAnimations/ScrambledText/ScrambledText';
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
+
 
 const Home = () => {
   const [testimonials, setTestimonials] = useState([]);
+  const [loopConfig, setLoopConfig] = useState({ logoHeight: 44, gap: 36, speed: 120 });
 
   useEffect(() => {
     (async () => {
@@ -28,6 +36,32 @@ const Home = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    const updateLoop = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        setLoopConfig({ logoHeight: 28, gap: 20, speed: 80 });
+      } else if (width < 768) {
+        setLoopConfig({ logoHeight: 36, gap: 28, speed: 100 });
+      } else if (width < 1024) {
+        setLoopConfig({ logoHeight: 42, gap: 32, speed: 110 });
+      } else {
+        setLoopConfig({ logoHeight: 48, gap: 40, speed: 120 });
+      }
+    };
+
+    updateLoop();
+    window.addEventListener('resize', updateLoop);
+    return () => window.removeEventListener('resize', updateLoop);
+  }, []);
+
+  const techLogos = [
+    { node: <SiReact />, title: "React", href: "https://react.dev" },
+    { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+    { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+    { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+  ];
 
   const services = [
     {
@@ -58,57 +92,114 @@ const Home = () => {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-24 lg:pt-32">
         {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
-          <div className='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")] opacity-50'></div>
+        <div className="absolute inset-0 ">
+          <DarkVeil
+            speed={2} />
         </div>
 
-        <div className="container-custom relative z-10 text-center">
+        <div className="container-custom relative z-10 text-center px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-poppins mb-6">
-              Transforming Ideas Into
-              <span className="block gradient-text">Digital Reality</span>
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-3 md:px-4 py-2 bg-primary-100/20 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-xs md:text-sm font-medium mb-4 md:mb-6 border border-primary-200/30 dark:border-primary-800/30"
+            >
+              <Star className="w-3 h-3 md:w-4 md:h-4 text-primary-600" />
+              Trusted by 25+ Clients Worldwide
+            </motion.div>
+
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-poppins tracking-tight leading-[1.1] sm:leading-[1.08] md:leading-[1.06] mb-3 md:mb-6">
+              <BlurText
+                text="Transforming Ideas Into"
+                delay={150}
+                animateBy="words"
+                direction="top"
+                className="text-2xl pl-27 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-poppins tracking-tight"
+              />
+              <span className="block gradient-text mb-2 md:mb-3">Digital Reality</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Founded by Thanzeer J and Devdarsh M, RyphTech delivers cutting-edge 
-              web development, app development, and machine learning solutions that 
-              drive business growth and innovation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact" className="btn-primary inline-flex items-center">
+            
+            <ScrambledText
+              radius={150}
+              duration={0.8}
+              speed={0.3}
+              scrambleChars=".:"
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8 mx-auto max-w-4xl px-2"
+            >
+              RyphTech delivers cutting-edge web development, app development, and machine learning solutions that drive business growth and innovation.
+            </ScrambledText>
+
+            {/* Quick Stats Row - Mobile Optimized */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-wrap justify-center gap-3 md:gap-6 mb-6 md:mb-8"
+            >
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">
+                <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                <span>4.9/5 Client Rating</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span>50+ Projects Completed</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>24/7 Support</span>
+              </div>
+            </motion.div>
+
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 md:mb-12">
+              <Link to="/contact" className="btn-primary inline-flex items-center justify-center group">
                 Start Your Project
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/projects" className="btn-secondary inline-flex items-center">
+              <Link to="/projects" className="btn-secondary inline-flex items-center justify-center group">
                 View Our Work
-                <Play className="ml-2 w-5 h-5" />
+                <Play className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:scale-110" />
               </Link>
             </div>
           </motion.div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gray-400 rounded-full mt-2"></div>
-          </div>
-        </motion.div>
+          {/* Tech Logos Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-8 md:mt-12 lg:mt-16"
+          >
+            <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-6">Powered by cutting-edge technologies</p>
+            <LogoLoop
+              logos={techLogos}
+              speed={loopConfig.speed}
+              direction="left"
+              logoHeight={loopConfig.logoHeight}
+              gap={loopConfig.gap}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#000"
+              ariaLabel="Technology partners"
+            />
+          </motion.div>
+        </div>
       </section>
 
       {/* Services Section */}
-      <section className="section-padding bg-white dark:bg-dark-800">
+      <section className="section-padding bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -121,7 +212,7 @@ const Home = () => {
               Our <span className="gradient-text">Services</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              We offer comprehensive IT solutions tailored to your business needs, 
+              We offer comprehensive IT solutions tailored to your business needs,
               from concept to deployment and beyond.
             </p>
           </motion.div>
@@ -136,6 +227,8 @@ const Home = () => {
                 viewport={{ once: true }}
                 className="card p-8 text-center group"
               >
+
+
                 <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <service.icon className="w-8 h-8 text-white" />
                 </div>
@@ -152,10 +245,11 @@ const Home = () => {
                   ))}
                 </ul>
               </motion.div>
+
             ))}
           </div>
         </div>
-      </section>
+      </section>  
 
       {/* Stats Section */}
       <section className="section-padding bg-gradient-to-r from-primary-600 to-purple-600 text-white">
@@ -234,7 +328,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-white dark:bg-dark-800">
+      <section className="section-padding bg-black">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -246,7 +340,7 @@ const Home = () => {
               Ready to Start Your <span className="gradient-text">Project?</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can help bring your vision to life with our expertise 
+              Let's discuss how we can help bring your vision to life with our expertise
               in web development, app development, and machine learning.
             </p>
             <Link to="/contact" className="btn-primary inline-flex items-center">
