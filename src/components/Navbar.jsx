@@ -236,6 +236,14 @@ const CardNav = ({
 const Navbar = () => {
   const items = [
     {
+      label: 'Home',
+      bgColor: '#0A0A0A',
+      textColor: '#fff',
+      links: [
+        { label: 'Go Home', ariaLabel: 'Return to home page', to: '/' },
+      ],
+    },
+    {
       label: 'About',
       bgColor: '#0D0716',
       textColor: '#fff',
