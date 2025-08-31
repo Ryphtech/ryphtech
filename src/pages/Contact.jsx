@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 import { 
   Mail, 
   Phone, 
@@ -13,7 +14,7 @@ import {
   Building
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import BackToHome from '../components/BackToHome';
+
 
 const Contact = () => {
   const formRef = useRef();
@@ -116,10 +117,61 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-16">
-      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
-        <BackToHome />
-      </div>
+    <>
+      <SEO
+        title="Contact RyphTech - Get in Touch for Your Next Project"
+        description="Contact RyphTech for web development, mobile apps, and AI solutions. Get a free consultation and quote for your technology project. Located in San Francisco."
+        keywords={[
+          'contact RyphTech',
+          'web development quote',
+          'mobile app development contact',
+          'AI solutions consultation',
+          'technology consulting',
+          'software development contact',
+          'project consultation',
+          'free quote'
+        ]}
+        url="/contact"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact RyphTech",
+          "description": "Get in touch with RyphTech for technology solutions",
+          "url": "https://ryphtech.com/contact",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "RyphTech",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+1-555-123-4567",
+                "contactType": "customer service",
+                "email": "hello@ryphtech.com",
+                "availableLanguage": "English"
+              },
+              {
+                "@type": "ContactPoint",
+                "telephone": "+1-555-987-6543",
+                "contactType": "technical support",
+                "email": "support@ryphtech.com",
+                "availableLanguage": "English"
+              }
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "123 Tech Street",
+              "addressLocality": "San Francisco",
+              "addressRegion": "CA",
+              "postalCode": "94105",
+              "addressCountry": "US"
+            }
+          }
+        }}
+      />
+      <div className="pt-16">
+        <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
+    
+        </div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
         <div className="container-custom">
@@ -466,7 +518,8 @@ const Contact = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

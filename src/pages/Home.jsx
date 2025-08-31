@@ -15,6 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import { listRows } from '../utils/crudService';
 import BlurText from "../blocks/TextAnimations/BlurText/BlurText";
+import SEO from '../components/SEO';
 
 import LogoLoop from '../blocks/Animations/LogoLoop/LogoLoop';
 import ScrambledText from '../blocks/TextAnimations/ScrambledText/ScrambledText';
@@ -93,8 +94,38 @@ const Home = () => {
   ];
 
   return (
-    <div className="">
-      {/* Mobile Hero Section */}
+    <>
+      <SEO
+        title="RyphTech - Modern Web Development & Technology Solutions"
+        description="RyphTech delivers cutting-edge web development, mobile apps, and AI solutions. Expert React, Next.js, and machine learning services for modern businesses."
+        keywords={[
+          'web development',
+          'React development',
+          'Next.js development',
+          'mobile app development',
+          'AI solutions',
+          'machine learning',
+          'software development',
+          'technology consulting',
+          'digital transformation',
+          'custom software'
+        ]}
+        url="/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "RyphTech",
+          "url": "https://ryphtech.com",
+          "description": "Modern web development and technology solutions",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://ryphtech.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }}
+      />
+      <div className="">
+        {/* Mobile Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-24 lg:hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
@@ -454,7 +485,8 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -23,10 +23,12 @@ const ScrambledText = ({
   useEffect(() => {
     if (!rootRef.current) return;
 
-    const split = SplitText.create(rootRef.current.querySelector("p"), {
-      type: "chars",
-      charsClass: "inline-block will-change-transform",
-    });
+    // Wait for fonts to load before creating SplitText
+    const initSplitText = () => {
+      const split = SplitText.create(rootRef.current.querySelector("p"), {
+        type: "chars",
+        charsClass: "inline-block will-change-transform",
+      });
 
     split.chars.forEach((el) => {
       const c = el;
@@ -56,12 +58,27 @@ const ScrambledText = ({
       });
     };
 
-    const el = rootRef.current;
-    el.addEventListener("pointermove", handleMove);
+      const el = rootRef.current;
+      el.addEventListener("pointermove", handleMove);
+
+      return () => {
+        el.removeEventListener("pointermove", handleMove);
+        split.revert();
+      };
+    };
+
+    // Check if fonts are loaded
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        initSplitText();
+      });
+    } else {
+      // Fallback for browsers that don't support document.fonts
+      setTimeout(initSplitText, 100);
+    }
 
     return () => {
-      el.removeEventListener("pointermove", handleMove);
-      split.revert();
+      // Cleanup will be handled by the inner function
     };
   }, [radius, duration, speed, scrambleChars]);
 

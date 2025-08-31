@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import BackToHome from '../components/BackToHome';
+
+import SEO from '../components/SEO';
 import { 
   Target, 
   Eye, 
@@ -66,10 +67,49 @@ const About = () => {
   ];
 
   return (
-    <div className="pt-16">
-      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
-        <BackToHome />
-      </div>
+    <>
+      <SEO
+        title="About RyphTech - Our Story, Mission & Values"
+        description="Learn about RyphTech's journey, mission, and values. Founded by Thanzeer J and Devdarsh M, we're passionate about transforming businesses through innovative technology solutions."
+        keywords={[
+          'about RyphTech',
+          'company story',
+          'mission statement',
+          'company values',
+          'team founders',
+          'technology company',
+          'web development company',
+          'software development team'
+        ]}
+        url="/about"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "RyphTech",
+          "url": "https://ryphtech.com",
+          "logo": "https://ryphtech.com/logo.png",
+          "description": "Modern web development and technology solutions",
+          "foundingDate": "2023",
+          "founder": [
+            {
+              "@type": "Person",
+              "name": "Thanzeer J"
+            },
+            {
+              "@type": "Person", 
+              "name": "Devdarsh M"
+            }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US"
+          }
+        }}
+      />
+      <div className="pt-16">
+        <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
+    
+        </div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:bg-black">
         <div className="container-custom">
@@ -292,7 +332,8 @@ const About = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

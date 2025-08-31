@@ -10,7 +10,7 @@ import {
   Filter,
   Plus
 } from 'lucide-react';
-import BackToHome from '../components/BackToHome';
+
 import { useAdmin } from '../contexts/AdminContext';
 import { listRows } from '../utils/crudService';
 
@@ -68,7 +68,7 @@ const Blog = () => {
   return (
     <div className="pt-16">
       <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
-        <BackToHome />
+  
       </div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">

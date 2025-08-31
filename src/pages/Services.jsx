@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 import { 
   Globe, 
   Smartphone, 
@@ -18,7 +19,7 @@ import {
   Palette,
   Users
 } from 'lucide-react';
-import BackToHome from '../components/BackToHome';
+
 
 const Services = () => {
   const services = [
@@ -114,10 +115,67 @@ const Services = () => {
   ];
 
   return (
-    <div className="pt-16">
-      <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
-        <BackToHome />
-      </div>
+    <>
+      <SEO
+        title="Our Services - Web Development, Mobile Apps & AI Solutions"
+        description="RyphTech offers comprehensive web development, mobile app development, and AI/ML solutions. Custom software development with React, Next.js, and cutting-edge technologies."
+        keywords={[
+          'web development services',
+          'mobile app development',
+          'AI solutions',
+          'machine learning services',
+          'React development',
+          'Next.js development',
+          'custom software development',
+          'technology consulting',
+          'digital transformation',
+          'cloud solutions'
+        ]}
+        url="/services"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Technology Services",
+          "provider": {
+            "@type": "Organization",
+            "name": "RyphTech"
+          },
+          "description": "Web development, mobile app development, and AI solutions",
+          "serviceType": ["Web Development", "Mobile App Development", "AI/ML Solutions"],
+          "areaServed": "Worldwide",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Technology Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web Development"
+                }
+              },
+              {
+                "@type": "Offer", 
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Mobile App Development"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service", 
+                  "name": "Machine Learning Solutions"
+                }
+              }
+            ]
+          }
+        }}
+      />
+      <div className="pt-16">
+        <div className="py-6 px-4 bg-gradient-to-br from-dark-900 to-dark-800 border-b border-dark-700">
+    
+        </div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
         <div className="container-custom">
@@ -356,7 +414,8 @@ const Services = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
