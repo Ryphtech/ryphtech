@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 const SEO = ({
   title,
@@ -27,92 +27,99 @@ const SEO = ({
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
   const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}/og-image.jpg`;
 
-  const metaTags = [
-    // Basic meta tags
-    { name: 'description', content: description },
-    { name: 'keywords', content: keywords.join(', ') },
-    { name: 'author', content: author },
-    { name: 'robots', content: robots },
-    
-    // Open Graph tags
-    { property: 'og:title', content: title },
-    { property: 'og:description', content: description },
-    { property: 'og:image', content: fullImageUrl },
-    { property: 'og:url', content: fullUrl },
-    { property: 'og:type', content: ogType },
-    { property: 'og:site_name', content: siteName },
-    { property: 'og:locale', content: 'en_US' },
-    
-    // Twitter Card tags
-    { name: 'twitter:card', content: twitterCard },
-    { name: 'twitter:title', content: title },
-    { name: 'twitter:description', content: description },
-    { name: 'twitter:image', content: fullImageUrl },
-  ];
+  useEffect(() => {
+    // Set document title
+    if (title) {
+      document.title = title;
+    }
 
-  // Add optional Twitter tags
-  if (twitterCreator) metaTags.push({ name: 'twitter:creator', content: twitterCreator });
-  if (twitterSite) metaTags.push({ name: 'twitter:site', content: twitterSite });
+    // Set meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = 'description';
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.content = description;
 
-  // Add article-specific meta tags
-  if (type === 'article') {
-    if (publishedTime) metaTags.push({ property: 'article:published_time', content: publishedTime });
-    if (modifiedTime) metaTags.push({ property: 'article:modified_time', content: modifiedTime });
-    if (section) metaTags.push({ property: 'article:section', content: section });
-    if (author) metaTags.push({ property: 'article:author', content: author });
-    tags.forEach(tag => metaTags.push({ property: 'article:tag', content: tag }));
-  }
+    // Set Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:image', content: fullImageUrl },
+      { property: 'og:url', content: fullUrl },
+      { property: 'og:type', content: ogType },
+      { property: 'og:site_name', content: siteName },
+      { property: 'og:locale', content: 'en_US' },
+    ];
 
-  // Add noindex/nofollow if specified
-  if (noindex || nofollow) {
-    const robotsValue = [];
-    if (noindex) robotsValue.push('noindex');
-    if (nofollow) robotsValue.push('nofollow');
-    metaTags.push({ name: 'robots', content: robotsValue.join(', ') });
-  }
+    // Set Twitter Card tags
+    const twitterTags = [
+      { name: 'twitter:card', content: twitterCard },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: fullImageUrl },
+    ];
 
-  return (
-    <Helmet>
-      <title>{title}</title>
-      <link rel="canonical" href={canonical || fullUrl} />
-      
-      {metaTags.map((tag, index) => (
-        <meta key={index} {...tag} />
-      ))}
+    if (twitterCreator) twitterTags.push({ name: 'twitter:creator', content: twitterCreator });
+    if (twitterSite) twitterTags.push({ name: 'twitter:site', content: twitterSite });
 
-      {/* Structured Data */}
-      {structuredData && (
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-      )}
+    // Update or create meta tags
+    const allTags = [...ogTags, ...twitterTags];
+    allTags.forEach(tag => {
+      const selector = tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`;
+      let metaTag = document.querySelector(selector);
+      if (!metaTag) {
+        metaTag = document.createElement('meta');
+        if (tag.property) metaTag.setAttribute('property', tag.property);
+        if (tag.name) metaTag.setAttribute('name', tag.name);
+        document.head.appendChild(metaTag);
+      }
+      metaTag.content = tag.content;
+    });
 
-      {/* Default structured data for organization */}
-      {!structuredData && (
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "RyphTech",
-            "url": siteUrl,
-            "logo": `${siteUrl}/logo.png`,
-            "description": "Modern web development and technology solutions",
-            "sameAs": [
-              "https://twitter.com/ryphtech",
-              "https://linkedin.com/company/ryphtech",
-              "https://github.com/ryphtech"
-            ],
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+1-555-0123",
-              "contactType": "customer service",
-              "email": "contact@ryphtech.com"
-            }
-          })}
-        </script>
-      )}
-    </Helmet>
-  );
+    // Set canonical URL
+    if (canonical || fullUrl) {
+      let canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.rel = 'canonical';
+        document.head.appendChild(canonicalLink);
+      }
+      canonicalLink.href = canonical || fullUrl;
+    }
+
+    // Add structured data if provided
+    if (structuredData) {
+      let script = document.querySelector('script[data-seo-structured-data]');
+      if (!script) {
+        script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-seo-structured-data', 'true');
+        document.head.appendChild(script);
+      }
+      script.textContent = JSON.stringify(structuredData);
+    }
+
+    // Cleanup function
+    return () => {
+      // Reset title to default when component unmounts
+      document.title = 'RyphTech - Modern Web Development & Technology Solutions';
+    };
+  }, [
+    title,
+    description,
+    fullImageUrl,
+    fullUrl,
+    ogType,
+    twitterCard,
+    twitterCreator,
+    twitterSite,
+    canonical,
+    structuredData
+  ]);
+
+  return null; // This component doesn't render anything
 };
 
 export default SEO;
