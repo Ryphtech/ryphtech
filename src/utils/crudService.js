@@ -8,6 +8,12 @@ export async function listRows(table, { select = '*', orderBy = 'created_at', as
   return data || []
 }
 
+export async function getRowById(table, id, idColumn = 'id') {
+  const { data, error } = await supabase.from(table).select('*').eq(idColumn, id).single()
+  if (error) throw error
+  return data
+}
+
 export async function createRow(table, values) {
   const { data, error } = await supabase.from(table).insert(values).select().single()
   if (error) throw error
@@ -27,6 +33,7 @@ export async function deleteRow(table, id, idColumn = 'id') {
 
 export default {
   listRows,
+  getRowById,
   createRow,
   updateRow,
   deleteRow,

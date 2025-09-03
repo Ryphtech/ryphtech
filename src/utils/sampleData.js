@@ -39,6 +39,75 @@ export const sampleTeamMembers = [
   }
 ];
 
+export const sampleProjects = [
+  {
+    title: 'E-Commerce Platform',
+    category: 'web',
+    description: 'A modern, responsive e-commerce platform built with React and Node.js. Features include user authentication, product management, shopping cart, and payment integration.',
+    image_url: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+    additional_images: [
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
+    ],
+    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    live_url: 'https://example-ecommerce.com',
+    github_url: 'https://github.com/example/ecommerce',
+    features: [
+      'User authentication and authorization',
+      'Product catalog with search and filters',
+      'Shopping cart and checkout process',
+      'Payment integration with Stripe',
+      'Admin dashboard for product management',
+      'Responsive design for all devices'
+    ]
+  },
+  {
+    title: 'Mobile Fitness App',
+    category: 'mobile',
+    description: 'A comprehensive fitness tracking mobile application that helps users monitor workouts, track nutrition, and achieve their fitness goals.',
+    image_url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop',
+    additional_images: [
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop'
+    ],
+    technologies: ['React Native', 'Firebase', 'Redux', 'Expo'],
+    live_url: 'https://play.google.com/store/apps/details?id=com.example.fitness',
+    github_url: 'https://github.com/example/fitness-app',
+    features: [
+      'Workout tracking and planning',
+      'Nutrition and calorie tracking',
+      'Progress analytics and charts',
+      'Social features and challenges',
+      'Offline workout support',
+      'Integration with fitness devices'
+    ]
+  },
+  {
+    title: 'AI Chatbot Assistant',
+    category: 'ai',
+    description: 'An intelligent chatbot powered by machine learning that provides customer support and answers frequently asked questions.',
+    image_url: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+    additional_images: [
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop'
+    ],
+    technologies: ['Python', 'TensorFlow', 'NLP', 'Flask', 'PostgreSQL'],
+    live_url: 'https://chatbot.example.com',
+    github_url: 'https://github.com/example/ai-chatbot',
+    features: [
+      'Natural language processing',
+      'Multi-language support',
+      'Integration with CRM systems',
+      'Analytics and reporting',
+      'Customizable responses',
+      '24/7 availability'
+    ]
+  }
+];
+
 export async function addSampleTeamMembers() {
   try {
     console.log('Adding sample team members...');
@@ -56,9 +125,28 @@ export async function addSampleTeamMembers() {
   }
 }
 
+export async function addSampleProjects() {
+  try {
+    console.log('Adding sample projects...');
+    
+    for (const project of sampleProjects) {
+      await createRow('projects', project);
+      console.log(`Added: ${project.title}`);
+    }
+    
+    console.log('Sample projects added successfully!');
+    return true;
+  } catch (error) {
+    console.error('Error adding sample projects:', error);
+    return false;
+  }
+}
+
 export default {
   sampleTeamMembers,
-  addSampleTeamMembers
+  sampleProjects,
+  addSampleTeamMembers,
+  addSampleProjects
 };
 
 

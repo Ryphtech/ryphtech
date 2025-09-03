@@ -4,6 +4,7 @@ import Home from '../Home';
 import About from '../About';
 import Services from '../Services';
 import Projects from '../Projects';
+import ProjectDetails from '../ProjectDetails';
 import Blog from '../Blog';
 import Team from '../Team';
 import Testimonials from '../Testimonials';
@@ -21,6 +22,7 @@ export default function UserRouter() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/team" element={<Team />} />
         <Route path="/testimonials" element={<Testimonials />} />

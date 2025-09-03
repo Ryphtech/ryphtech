@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   ExternalLink, 
   Github, 
@@ -8,7 +9,8 @@ import {
   Brain,
   Filter,
   Search,
-  Plus
+  Plus,
+  GraduationCap
 } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
 
@@ -17,6 +19,7 @@ import { listRows } from '../utils/crudService';
 
 const Projects = () => {
   const { isAdmin } = useAdmin();
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [projects, setProjects] = useState([]);
@@ -27,14 +30,16 @@ const Projects = () => {
     { id: 'all', label: 'All Projects' },
     { id: 'web', label: 'Web Development' },
     { id: 'mobile', label: 'App Development' },
-    { id: 'ai', label: 'Machine Learning' }
+    { id: 'ai', label: 'Machine Learning' },
+    { id: 'college', label: 'College Projects' }
   ];
 
   const projectFields = [
     { key: 'title', label: 'Title' },
     { key: 'category', label: 'Category' },
     { key: 'description', label: 'Description' },
-    { key: 'image_url', label: 'Image URL' },
+    { key: 'image_url', label: 'Main Image URL' },
+    { key: 'additional_images', label: 'Additional Images (JSON array of URLs or objects with url and alt properties)' },
     { key: 'technologies', label: 'Technologies' },
     { key: 'live_url', label: 'Live URL' },
     { key: 'github_url', label: 'GitHub URL' },
@@ -103,8 +108,39 @@ const Projects = () => {
       case 'web': return Globe;
       case 'mobile': return Smartphone;
       case 'ai': return Brain;
+      case 'college': return GraduationCap;
       default: return Globe;
     }
+  };
+
+  const handleProjectClick = (projectId) => {
+    navigate(`/projects/${projectId}`);
+  };
+
+  // Helper function to get project images for preview
+  const getProjectPreviewImages = (project) => {
+    const images = [];
+    
+    // Add main image if it exists
+    if (project.image_url) {
+      images.push(project.image_url);
+    }
+    
+    // Add additional images if they exist
+    if (Array.isArray(project.additional_images) && project.additional_images.length > 0) {
+      project.additional_images.forEach((img) => {
+        if (images.length < 3) { // Limit to 3 images for preview
+          images.push(img.url || img);
+        }
+      });
+    }
+    
+    // If no images, use placeholder
+    if (images.length === 0) {
+      images.push('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop');
+    }
+    
+    return images;
   };
 
   return (
@@ -197,15 +233,46 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="card overflow-hidden group"
+                    className="card overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                    onClick={() => handleProjectClick(project.id)}
                   >
                     {/* Project Image */}
                     <div className="relative overflow-hidden">
-                      <img
-                        src={project.image_url || 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop'}
-                        alt={project.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+                      {(() => {
+                        const images = getProjectPreviewImages(project);
+                        
+                        if (images.length === 1) {
+                          return (
+                            <img
+                              src={images[0]}
+                              alt={project.title}
+                              className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                          );
+                        }
+                        
+                        // Show multiple images in a grid
+                        return (
+                          <div className="grid grid-cols-2 gap-1 h-48">
+                            {images.slice(0, 4).map((img, index) => (
+                              <div key={index} className="relative overflow-hidden">
+                                <img
+                                  src={img}
+                                  alt={`${project.title} - Image ${index + 1}`}
+                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                />
+                                {index === 3 && images.length > 4 && (
+                                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                                    <span className="text-white text-sm font-medium">
+                                      +{images.length - 4} more
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })()}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4 flex gap-2">
                           {project.live_url && (
@@ -214,6 +281,7 @@ const Projects = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <ExternalLink className="w-5 h-5 text-white" />
                             </a>
@@ -224,6 +292,7 @@ const Projects = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <Github className="w-5 h-5 text-white" />
                             </a>
@@ -239,8 +308,9 @@ const Projects = () => {
 
                     {/* Project Content */}
                     <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-3 group-hover:text-primary-600 transition-colors duration-300">
+                      <h3 className="text-xl font-semibold mb-3 group-hover:text-primary-600 transition-colors duration-300 flex items-center">
                         {project.title}
+                        <ExternalLink className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </h3>
                       <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                         {project.description}
@@ -272,6 +342,13 @@ const Projects = () => {
                             <li className="text-primary-600 text-xs">+{project.features.length - 3} more features</li>
                           )}
                         </ul>
+                      </div>
+                      
+                      {/* Click hint */}
+                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-dark-600">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                          Click to view details
+                        </p>
                       </div>
                     </div>
                   </motion.div>
