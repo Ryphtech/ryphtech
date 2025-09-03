@@ -270,11 +270,11 @@ const Navbar = () => {
       ],
     },
     {
-      label: 'Services',
+      label: 'Services & Pricing',
       bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
-        { label: 'Our Services', ariaLabel: 'View services', to: '/services' },
+        { label: 'Our Services & Pricing', ariaLabel: 'View services', to: '/services' },
       ],
     },
     {

@@ -242,6 +242,123 @@ const Services = () => {
                     ))}
                   </div>
                 </div>
+
+                {/* Pricing Table for Web Development */}
+                {service.title === 'Web Development' && (
+                  <div className="mt-8">
+                    <h3 className="text-xl font-semibold font-poppins mb-6">Website Pricing Plans</h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <thead>
+                          <tr className="bg-gradient-to-r from-primary-600 to-purple-600 text-white">
+                            <th className="px-4 py-3 text-left font-semibold">Feature</th>
+                            <th className="px-4 py-3 text-center font-semibold">Budget</th>
+                            <th className="px-4 py-3 text-center font-semibold">Basic</th>
+                            <th className="px-4 py-3 text-center font-semibold">Standard</th>
+                            <th className="px-4 py-3 text-center font-semibold">Professional</th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white dark:bg-dark-700">
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">Free Domain</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-800">
+                            <td className="px-4 py-3 font-medium">WhatsApp Chat</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">Live Chat</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-800">
+                            <td className="px-4 py-3 font-medium">CMS (Self Update)</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">Contact Forms</td>
+                            <td className="px-4 py-3 text-center">Basic-1</td>
+                            <td className="px-4 py-3 text-center">Advanced-2</td>
+                            <td className="px-4 py-3 text-center">Advanced-2+</td>
+                            <td className="px-4 py-3 text-center">Advanced-2+</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-800">
+                            <td className="px-4 py-3 font-medium">Theme Design</td>
+                            <td className="px-4 py-3 text-center">Basic-1</td>
+                            <td className="px-4 py-3 text-center">2</td>
+                            <td className="px-4 py-3 text-center">3</td>
+                            <td className="px-4 py-3 text-center">3</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">Dynamic Website</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-800">
+                            <td className="px-4 py-3 font-medium">SEO Friendly</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">Social Media Integration</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-800">
+                            <td className="px-4 py-3 font-medium">Responsive Theme</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">Content Strategy</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-800">
+                            <td className="px-4 py-3 font-medium">Website Management</td>
+                            <td className="px-4 py-3 text-center text-red-500">✘</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 dark:border-gray-600">
+                            <td className="px-4 py-3 font-medium">24x7 Support</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                            <td className="px-4 py-3 text-center text-green-600">✔</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                      <p>* All plans include hosting and SSL certificate</p>
+                      <p>* Custom features available upon request</p>
+                    </div>
+                  </div>
+                )}
               </motion.div>
 
               <motion.div

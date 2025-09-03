@@ -8,6 +8,9 @@ import Blog from '../Blog';
 import Team from '../Team';
 import Testimonials from '../Testimonials';
 import Contact from '../Contact';
+import Careers from '../Careers';
+import Privacy from '../Privacy';
+import Terms from '../Terms';
 
 
 export default function UserRouter() {
@@ -21,7 +24,10 @@ export default function UserRouter() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/team" element={<Team />} />
         <Route path="/testimonials" element={<Testimonials />} />
-                <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
 
 
        </Routes>
