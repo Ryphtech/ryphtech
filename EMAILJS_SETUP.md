@@ -37,6 +37,7 @@ This guide will help you set up EmailJS to make your contact form functional.
 ```bash
 VITE_EMAILJS_SERVICE_ID=your_actual_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_actual_template_id
+VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID=optional_autoreply_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_actual_public_key
 ```
 
@@ -44,33 +45,28 @@ VITE_EMAILJS_PUBLIC_KEY=your_actual_public_key
 ```bash
 VITE_EMAILJS_SERVICE_ID=service_abc123
 VITE_EMAILJS_TEMPLATE_ID=template_xyz789
+VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID=template_autoreply123
 VITE_EMAILJS_PUBLIC_KEY=user_def456
 ```
 
-## Step 6: Test the Form
+## Step 6: Auto‑reply Template (optional)
+Create a second template for confirmation emails to users. Suggested variables:
+- `{{name}}`, `{{subject}}` (optional), and a friendly confirmation message
+- Ensure the template uses the "To" field as a dynamic variable (e.g., `{{to_email}}`) so we can pass the user's email in parameters
+
+## Step 7: Test the Form
 1. Restart your development server
 2. Fill out the contact form
-3. Submit and check if emails are received
+3. Submit and check if both owner notification and auto‑reply are received
 
 ## Troubleshooting
-
-### Common Issues:
-1. **400 Bad Request**: Check if credentials are correct
-2. **Template Variables**: Ensure template variables match form field names
-3. **Service Status**: Verify your email service is active
-4. **Rate Limits**: Free tier has limits (200 emails/month)
-
-### Debug Steps:
-1. Check browser console for error messages
-2. Verify environment variables are loaded
-3. Test with EmailJS dashboard
-4. Check email service status
+- Ensure all IDs are from the same EmailJS account
+- Template variables must match the ones in the code
+- Rebuild/redeploy after changing envs
 
 ## Security Notes
-- Never commit your `.env` file to version control
-- The `.env` file is already in `.gitignore`
-- Use environment variables for all sensitive data
-- Consider upgrading to paid plan for production use
+- Never commit your `.env` file
+- Credentials are read from env at build time
 
 ## Support
 - EmailJS Documentation: [https://www.emailjs.com/docs/](https://www.emailjs.com/docs/)

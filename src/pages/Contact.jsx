@@ -93,6 +93,7 @@ const Contact = () => {
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+      const autoReplyTemplateId = import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID; // optional
 
       // Check if credentials are properly configured
       if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
@@ -109,6 +110,26 @@ const Contact = () => {
       );
 
       if (result.status === 200) {
+        // Optional auto-reply to the user. Requires an EmailJS template whose "To" is set to {{to_email}}
+        if (autoReplyTemplateId) {
+          try {
+            await emailjs.send(
+              serviceId,
+              autoReplyTemplateId,
+              {
+                to_email: formData.email,
+                to_name: formData.name,
+                subject: formData.subject,
+                message: formData.message
+              },
+              publicKey
+            );
+          } catch (autoErr) {
+            // Log but don't fail the whole submission
+            console.warn('Auto-reply failed:', autoErr);
+          }
+        }
+
         setSubmitStatus('success');
         setFormData({
           name: '',
