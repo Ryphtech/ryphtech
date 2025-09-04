@@ -32,19 +32,19 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      details: ['hello@ryphtech.com', 'support@ryphtech.com'],
-      link: 'mailto:hello@ryphtech.com'
+      details: ['ryphtech@gmail.com'],
+      link: 'mailto:ryphtech@gmail.com'
     },
     {
       icon: Phone,
       title: 'Phone',
-      details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-      link: 'tel:+15551234567'
+      details: ['+91 9497051820'],
+      link: 'tel:+919497051820'
     },
     {
       icon: MapPin,
       title: 'Office',
-      details: ['123 Tech Street', 'Innovation District', 'San Francisco, CA 94105'],
+      details: ['Ayathil', 'Kollam', 'Kerala, India'],
       link: 'https://maps.google.com'
     },
     {
@@ -88,12 +88,24 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      // Replace with your actual EmailJS service ID, template ID, and public key
+      // TODO: Replace these placeholder values with your actual EmailJS credentials
+      // Get them from: https://www.emailjs.com/
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+
+      // Check if credentials are properly configured
+      if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
+        setSubmitStatus('error');
+        console.error('EmailJS Error: Please configure your EmailJS credentials. See the Contact.jsx file for instructions.');
+        return;
+      }
+
       const result = await emailjs.sendForm(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        serviceId,
+        templateId,
         formRef.current,
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+        publicKey
       );
 
       if (result.status === 200) {
@@ -120,7 +132,7 @@ const Contact = () => {
     <>
       <SEO
         title="Contact RyphTech - Get in Touch for Your Next Project"
-        description="Contact RyphTech for web development, mobile apps, and AI solutions. Get a free consultation and quote for your technology project. Located in San Francisco."
+        description="Contact RyphTech for web development, mobile apps, and AI solutions. Get a free consultation and quote for your technology project. Located in Kollam, Kerala, India."
         keywords={[
           'contact RyphTech',
           'web development quote',
@@ -144,26 +156,26 @@ const Contact = () => {
             "contactPoint": [
               {
                 "@type": "ContactPoint",
-                "telephone": "+1-555-123-4567",
+                "telephone": "+91 9497051820",
                 "contactType": "customer service",
-                "email": "hello@ryphtech.com",
+                "email": "ryphtech@gmail.com",
                 "availableLanguage": "English"
               },
               {
                 "@type": "ContactPoint",
-                "telephone": "+1-555-987-6543",
+                "telephone": "+91 9497051820",
                 "contactType": "technical support",
-                "email": "support@ryphtech.com",
+                "email": "ryphtech@gmail.com",
                 "availableLanguage": "English"
               }
             ],
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "123 Tech Street",
-              "addressLocality": "San Francisco",
-              "addressRegion": "CA",
-              "postalCode": "94105",
-              "addressCountry": "US"
+                "streetAddress": "Ayathil",
+              "addressLocality": "Kollam",
+              "addressRegion": "Kerala",
+              "postalCode": "691521",
+              "addressCountry": "India"
             }
           }
         }}
@@ -506,11 +518,11 @@ const Contact = () => {
               Let's discuss your project requirements and create something amazing together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+15551234567" className="btn-primary inline-flex items-center">
+              <a href="tel:+919497051820" className="btn-primary inline-flex items-center">
                 Call Us Now
                 <Phone className="ml-2 w-5 h-5" />
               </a>
-              <a href="mailto:hello@ryphtech.com" className="btn-secondary inline-flex items-center">
+              <a href="mailto:ryphtech@gmail.com" className="btn-secondary inline-flex items-center">
                 Send Email
                 <Mail className="ml-2 w-5 h-5" />
               </a>
