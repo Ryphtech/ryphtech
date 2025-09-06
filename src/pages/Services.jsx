@@ -17,7 +17,8 @@ import {
   GitBranch,
   Monitor,
   Palette,
-  Users
+  Users,
+  Image
 } from 'lucide-react';
 
 
@@ -88,6 +89,28 @@ const Services = () => {
         { step: '03', title: 'Integration', description: 'Integrating ML models into your existing systems' },
         { step: '04', title: 'Monitoring & Optimization', description: 'Continuous monitoring and model improvement' }
       ]
+    },
+    {
+      icon: Image,
+      title: 'Poster Designing',
+      description: 'We create stunning, professional posters that capture attention and effectively communicate your message to your target audience.',
+      features: [
+        'Event Posters & Flyers',
+        'Marketing & Promotional Posters',
+        'Social Media Graphics',
+        'Print-Ready Designs',
+        'Brand-Consistent Designs',
+        'High-Resolution Output',
+        'Multiple Format Support',
+        'Quick Turnaround Times'
+      ],
+      technologies: ['Adobe Photoshop', 'Adobe Illustrator', 'Canva Pro', 'Figma', 'CorelDRAW', 'InDesign', 'Sketch', 'Procreate'],
+      process: [
+        { step: '01', title: 'Concept & Briefing', description: 'Understanding your requirements, target audience, and design objectives' },
+        { step: '02', title: 'Design & Layout', description: 'Creating initial concepts and layouts for your approval' },
+        { step: '03', title: 'Refinement', description: 'Incorporating feedback and perfecting the design details' },
+        { step: '04', title: 'Final Delivery', description: 'Providing high-resolution files in all required formats' }
+      ]
     }
   ];
 
@@ -117,13 +140,15 @@ const Services = () => {
   return (
     <>
       <SEO
-        title="Our Services - Web Development, Mobile Apps & AI Solutions"
-        description="RyphTech offers comprehensive web development, mobile app development, and AI/ML solutions. Custom software development with React, Next.js, and cutting-edge technologies."
+        title="Our Services - Web Development, Mobile Apps, AI Solutions & Poster Design"
+        description="RyphTech offers comprehensive web development, mobile app development, AI/ML solutions, and professional poster designing services. Custom software development with React, Next.js, and cutting-edge technologies."
         keywords={[
           'web development services',
           'mobile app development',
           'AI solutions',
           'machine learning services',
+          'poster designing services',
+          'graphic design services',
           'React development',
           'Next.js development',
           'custom software development',
@@ -140,8 +165,8 @@ const Services = () => {
             "@type": "Organization",
             "name": "RyphTech"
           },
-          "description": "Web development, mobile app development, and AI solutions",
-          "serviceType": ["Web Development", "Mobile App Development", "AI/ML Solutions"],
+          "description": "Web development, mobile app development, AI solutions, and poster designing services",
+          "serviceType": ["Web Development", "Mobile App Development", "AI/ML Solutions", "Poster Designing"],
           "areaServed": "Worldwide",
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
@@ -166,6 +191,13 @@ const Services = () => {
                 "itemOffered": {
                   "@type": "Service", 
                   "name": "Machine Learning Solutions"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Poster Designing"
                 }
               }
             ]

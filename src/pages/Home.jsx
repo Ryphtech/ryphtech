@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import DarkVeil from '../blocks/Backgrounds/DarkVeil/DarkVeil';
 import {
   ArrowRight,
@@ -196,13 +197,17 @@ const Home = () => {
 
             {/* Mobile Optimized Buttons */}
             <div className="flex flex-col gap-4 mb-8">
-              <Link to="/contact" className="btn-primary inline-flex items-center justify-center group w-full text-center">
-                Start Your Project
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <Link to="/contact" className="w-full text-center">
+                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center w-full">
+                  Start Your Project
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </HoverBorderGradient>
               </Link>
-              <Link to="/projects" className="btn-secondary inline-flex items-center justify-center group w-full text-center">
-                View Our Work
-                <Play className="ml-2 w-5 h-5 transition-transform group-hover:scale-110" />
+              <Link to="/projects" className="w-full text-center">
+                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center w-full">
+                  View Our Work
+                  <Play className="ml-2 w-5 h-5" />
+                </HoverBorderGradient>
               </Link>
             </div>
 
@@ -300,13 +305,17 @@ const Home = () => {
             </motion.div>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 justify-center mb-8 md:mb-12 px-4">
-              <Link to="/contact" className="btn-primary inline-flex items-center justify-center group w-full sm:w-auto text-center">
-                Start Your Project
-                <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
+              <Link to="/contact" className="w-full sm:w-auto text-center">
+                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center px-6">
+                  Start Your Project
+                  <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+                </HoverBorderGradient>
               </Link>
-              <Link to="/projects" className="btn-secondary inline-flex items-center justify-center group w-full sm:w-auto text-center">
-                View Our Work
-                <Play className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:scale-110" />
+              <Link to="/projects" className="w-full sm:w-auto text-center">
+                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center px-6">
+                  View Our Work
+                  <Play className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+                </HoverBorderGradient>
               </Link>
             </div>
           </motion.div>
