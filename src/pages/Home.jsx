@@ -196,18 +196,14 @@ const Home = () => {
             </motion.div>
 
             {/* Mobile Optimized Buttons */}
-            <div className="flex flex-col gap-4 mb-8">
-              <Link to="/contact" className="w-full text-center">
-                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center w-full">
-                  Start Your Project
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </HoverBorderGradient>
+            <div className="flex flex-col gap-4 mb-8 px-4">
+              <Link to="/contact" className="btn-primary inline-flex items-center justify-center group">
+                Start Your Project
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/projects" className="w-full text-center">
-                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center w-full">
-                  View Our Work
-                  <Play className="ml-2 w-5 h-5" />
-                </HoverBorderGradient>
+              <Link to="/projects" className="btn-secondary inline-flex items-center justify-center group">
+                View Our Work
+                <Play className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
