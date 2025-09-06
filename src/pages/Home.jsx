@@ -162,10 +162,10 @@ const Home = () => {
                 delay={150}
                 animateBy="words"
                 direction="top"
-                className="text-3xl font-bold font-poppins tracking-tight block mb-3 text-center"
+                className="text-3xl font-bold font-poppins tracking-tight inline text-center"
               />
-              <span className="block gradient-text text-3xl text-center">
-                <FlipWords words={flipWords} duration={3000}  />
+              <span className="gradient-text text-3xl text-center">
+                <FlipWords words={flipWords} duration={3000} />
               </span>
             </h1>
             
