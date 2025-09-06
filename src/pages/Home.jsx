@@ -22,11 +22,15 @@ import LogoLoop from '../blocks/Animations/LogoLoop/LogoLoop';
 import ScrambledText from '../blocks/TextAnimations/ScrambledText/ScrambledText';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 import { BackgroundGradient } from '../components/ui/background-gradient';
+import { FlipWords } from '../components/ui/flip-words';
 
 
 const Home = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [loopConfig, setLoopConfig] = useState({ logoHeight: 44, gap: 36, speed: 120 });
+  
+  // Words for FlipWords animation
+  const flipWords = ["Digital Reality", "Innovation", "Success", "Excellence"];
 
   useEffect(() => {
     (async () => {
@@ -154,13 +158,15 @@ const Home = () => {
             {/* Mobile Optimized Heading */}
             <h1 className="text-3xl font-bold font-poppins tracking-tight leading-tight mb-4 px-2 text-center">
               <BlurText
-                text="Transforming Ideas Into Digital Reality "
+                text="Transforming Ideas Into "
                 delay={150}
                 animateBy="words"
                 direction="top"
                 className="text-3xl font-bold font-poppins tracking-tight block mb-3 text-center"
               />
-              {/* <span className="block gradient-text text-3xl text-center">Digital Reality</span> */}
+              <span className="block gradient-text text-3xl text-center">
+                <FlipWords words={flipWords} duration={3000}  />
+              </span>
             </h1>
             
             {/* Mobile Optimized Description */}
@@ -266,7 +272,9 @@ const Home = () => {
                 direction="top"
                 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-poppins tracking-tight block mb-2 text-center pl-40"
               />
-              <span className="block gradient-text mb-2 md:mb-3 text-center">Digital Reality</span>
+              <span className="block gradient-text mb-2 md:mb-3 text-center">
+                <FlipWords words={flipWords} duration={3000} />
+              </span>
             </h1>
             
             <ScrambledText

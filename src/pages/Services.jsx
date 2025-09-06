@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
+import { HoverEffect } from '../components/ui/card-hover-effect';
 import { 
   Globe, 
   Smartphone, 
@@ -134,6 +135,46 @@ const Services = () => {
       icon: GitBranch,
       title: 'DevOps',
       description: 'Streamline your development process with CI/CD pipelines and automation.'
+    }
+  ];
+
+  // Data for the hover effect component
+  const whyChooseUsData = [
+    {
+      title: 'Fast Delivery',
+      description: 'We deliver projects on time and within budget, without compromising on quality.',
+      link: '/contact',
+      icon: Zap
+    },
+    {
+      title: 'Quality Assurance',
+      description: 'Rigorous testing and quality control processes ensure your solution works flawlessly.',
+      link: '/contact',
+      icon: Shield
+    },
+    {
+      title: 'Expert Team',
+      description: 'Our experienced team brings diverse skills and deep industry knowledge to every project.',
+      link: '/team',
+      icon: Users
+    },
+    {
+      title: '24/7 Support',
+      description: 'Round-the-clock support and maintenance to keep your systems running smoothly.',
+      link: '/contact',
+      icon: Monitor
+    },
+    {
+      title: 'Custom Solutions',
+      description: 'Tailored solutions designed specifically for your business needs and objectives.',
+      link: '/contact',
+      icon: Palette
+    },
+    {
+      title: 'Modern Technology',
+      description: 'We use the latest technologies and best practices to build future-proof solutions.',
+      link: '/services',
+      icon: Code
     }
   ];
 
@@ -463,7 +504,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Choose Us - Hover Effect */}
       <section className="section-padding bg-gray-50 dark:bg-dark-900">
         <div className="container-custom">
           <motion.div
@@ -481,57 +522,14 @@ const Services = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Zap,
-                title: 'Fast Delivery',
-                description: 'We deliver projects on time and within budget, without compromising on quality.'
-              },
-              {
-                icon: Shield,
-                title: 'Quality Assurance',
-                description: 'Rigorous testing and quality control processes ensure your solution works flawlessly.'
-              },
-              {
-                icon: Users,
-                title: 'Expert Team',
-                description: 'Our experienced team brings diverse skills and deep industry knowledge to every project.'
-              },
-              {
-                icon: Monitor,
-                title: '24/7 Support',
-                description: 'Round-the-clock support and maintenance to keep your systems running smoothly.'
-              },
-              {
-                icon: Palette,
-                title: 'Custom Solutions',
-                description: 'Tailored solutions designed specifically for your business needs and objectives.'
-              },
-              {
-                icon: Code,
-                title: 'Modern Technology',
-                description: 'We use the latest technologies and best practices to build future-proof solutions.'
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className="card p-6 text-center group"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <HoverEffect items={whyChooseUsData} />
+          </motion.div>
         </div>
       </section>
 
