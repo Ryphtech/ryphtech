@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+<stop offset="50%" style="stop-color:#2d1b69;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#11998e;stop-opacity:1" />
+</linearGradient>
+<linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+<stop offset="25%" style="stop-color:#4ecdc4;stop-opacity:1" />
+<stop offset="50%" style="stop-color:#45b7d1;stop-opacity:1" />
+<stop offset="75%" style="stop-color:#96ceb4;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#feca57;stop-opacity:1" />
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#gradient)"/>
+<text x="600" y="200" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="url(#textGradient)" text-anchor="middle">RyphTech</text>
+<text x="600" y="280" font-family="Arial, sans-serif" font-size="36" font-weight="300" fill="white" opacity="0.9" text-anchor="middle">Modern Web Development &amp; Technology Solutions</text>
+<text x="600" y="340" font-family="Arial, sans-serif" font-size="24" fill="white" opacity="0.8" text-anchor="middle">Cutting-edge web development, mobile apps, and AI solutions.</text>
+<text x="600" y="370" font-family="Arial, sans-serif" font-size="24" fill="white" opacity="0.8" text-anchor="middle">Expert React, Next.js, and machine learning services for modern businesses.</text>
+<text x="600" y="450" font-family="Arial, sans-serif" font-size="18" fill="white" opacity="0.7" text-anchor="middle">React • Next.js • AI/ML • Mobile Apps</text>
+</svg>

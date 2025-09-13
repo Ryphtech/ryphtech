@@ -12,6 +12,8 @@ Disallow: /admin/*
 Disallow: /private/
 Disallow: /api/
 Disallow: /_next/
+Disallow: /src/
+Disallow: /node_modules/
 
 # Allow important pages
 Allow: /
@@ -22,6 +24,18 @@ Allow: /blog
 Allow: /team
 Allow: /testimonials
 Allow: /contact
+Allow: /careers
+Allow: /privacy
+Allow: /terms
+
+# Allow static assets
+Allow: /assets/
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /site.webmanifest
 
 # Crawl delay (optional)
 Crawl-delay: 1
+
+# Additional directives for better SEO
+Host: https://ryphtech.com

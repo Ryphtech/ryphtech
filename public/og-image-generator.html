@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator - RyphTech</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .og-image {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #11998e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .og-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            position: relative;
+            z-index: 1;
+        }
+        .tagline {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        .description {
+            font-size: 24px;
+            opacity: 0.8;
+            max-width: 800px;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+        .tech-stack {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            font-size: 18px;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn" onclick="downloadImage()">Download OG Image</button>
+    
+    <div class="og-image" id="ogImage">
+        <div class="logo">RyphTech</div>
+        <div class="tagline">Modern Web Development & Technology Solutions</div>
+        <div class="description">
+            Cutting-edge web development, mobile apps, and AI solutions.<br>
+            Expert React, Next.js, and machine learning services for modern businesses.
+        </div>
+        <div class="tech-stack">
+            <div class="tech-item">React</div>
+            <div class="tech-item">Next.js</div>
+            <div class="tech-item">AI/ML</div>
+            <div class="tech-item">Mobile Apps</div>
+        </div>
+    </div>
+
+    <script>
+        function downloadImage() {
+            const element = document.getElementById('ogImage');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = 1200;
+            canvas.height = 630;
+            
+            // Create a temporary container to render the element
+            const tempContainer = document.createElement('div');
+            tempContainer.style.position = 'absolute';
+            tempContainer.style.left = '-9999px';
+            tempContainer.style.width = '1200px';
+            tempContainer.style.height = '630px';
+            tempContainer.appendChild(element.cloneNode(true));
+            document.body.appendChild(tempContainer);
+            
+            // Use html2canvas if available, otherwise show instructions
+            if (typeof html2canvas !== 'undefined') {
+                html2canvas(element, {
+                    width: 1200,
+                    height: 630,
+                    scale: 1
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'ryphtech-og-image.jpg';
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                    link.click();
+                    document.body.removeChild(tempContainer);
+                });
+            } else {
+                alert('Please install html2canvas library or take a screenshot of the image above and save it as "og-image.jpg" in your public/assets/ folder.');
+                document.body.removeChild(tempContainer);
+            }
+        }
+    </script>
+    
+    <!-- Include html2canvas library for image generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
