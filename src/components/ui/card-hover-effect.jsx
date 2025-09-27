@@ -42,7 +42,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             {item.icon && (
-              <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <item.icon className="w-8 h-8 text-white" />
               </div>
             )}

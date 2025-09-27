@@ -111,7 +111,7 @@ const About = () => {
     
         </div>
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:bg-black">
+      <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-dark-900 dark:via-dark-800 dark:bg-black">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -170,7 +170,7 @@ const About = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl p-8 text-white">
+              <div className="bg-gradient-to-br from-primary-600 to-primary-500 rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold font-poppins mb-4">Our Mission</h3>
                 <p className="text-lg mb-6">
                   To empower businesses with innovative technology solutions that drive growth, 
@@ -215,7 +215,7 @@ const About = () => {
                 viewport={{ once: true }}
                 className="card p-6 text-center group"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <value.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{value.title}</h3>
@@ -229,7 +229,7 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="section-padding bg-gradient-to-r from-primary-600 to-purple-600 text-white">
+      <section className="section-padding bg-gradient-to-r from-primary-600 to-primary-500 text-white">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -272,7 +272,7 @@ const About = () => {
 
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-primary-600 to-purple-600 h-full hidden lg:block"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-primary-600 to-primary-500 h-full hidden lg:block"></div>
 
             <div className="space-y-12">
               {milestones.map((milestone, index) => (
@@ -293,7 +293,7 @@ const About = () => {
                   </div>
 
                   {/* Timeline Dot */}
-                  <div className="hidden lg:block w-4 h-4 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full border-4 border-white dark:border-dark-800 shadow-lg"></div>
+                  <div className="hidden lg:block w-4 h-4 bg-gradient-to-r from-primary-600 to-primary-500 rounded-full border-4 border-white dark:border-dark-800 shadow-lg"></div>
 
                   <div className={`flex-1 ${index % 2 === 0 ? 'lg:pl-12' : 'lg:pr-12'}`}></div>
                 </motion.div>

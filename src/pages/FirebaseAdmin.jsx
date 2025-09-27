@@ -43,11 +43,11 @@ const pages = [
     { key: 'quote', label: 'Quote' },
     { key: 'company', label: 'Company' },
   ] },
-]
+];
 
-export default function Admin() {
-  const [session, setSession] = useState(null)
-  const [loading, setLoading] = useState(true)
+export default function FirebaseAdmin() {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -66,8 +66,8 @@ export default function Admin() {
     }
   };
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">Loading...</div>
-  if (!session) return <AdminLogin onSignedIn={() => setSession(true)} />
+  if (loading) return <div className="p-6 text-sm text-gray-600">Loading...</div>;
+  if (!session) return <AdminLogin onSignedIn={() => setSession(true)} />;
 
   return (
     <div className="space-y-16">
@@ -86,7 +86,5 @@ export default function Admin() {
         </section>
       ))}
     </div>
-  )
+  );
 }
-
-

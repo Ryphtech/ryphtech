@@ -1,7 +1,3 @@
-// This file has been migrated to Firebase
-// Use firebaseUploadService.js instead
-// Keeping this file for reference during migration
-
 import { 
   ref, 
   uploadBytes, 

@@ -250,7 +250,7 @@ const Services = () => {
     
         </div>
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
+      <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -280,7 +280,7 @@ const Services = () => {
                 viewport={{ once: true }}
                 className={serviceIndex % 2 === 0 ? '' : 'lg:order-2'}
               >
-                <div className="w-20 h-20 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-r from-primary-600 to-primary-500 rounded-2xl flex items-center justify-center mb-6">
                   <service.icon className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-6">
@@ -323,7 +323,7 @@ const Services = () => {
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                         <thead>
-                          <tr className="bg-gradient-to-r from-primary-600 to-purple-600 text-white">
+                          <tr className="bg-gradient-to-r from-primary-600 to-primary-500 text-white">
                             <th className="px-4 py-3 text-left font-semibold">Feature</th>
                             <th className="px-4 py-3 text-center font-semibold">Budget</th>
                             <th className="px-4 py-3 text-center font-semibold">Basic</th>
@@ -441,7 +441,7 @@ const Services = () => {
                 viewport={{ once: true }}
                 className={serviceIndex % 2 === 0 ? 'lg:order-2' : ''}
               >
-                <div className="bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl p-8 text-white">
+                <div className="bg-gradient-to-br from-primary-600 to-primary-500 rounded-2xl p-8 text-white">
                   <h3 className="text-2xl font-bold font-poppins mb-6">Our Process</h3>
                   <div className="space-y-6">
                     {service.process.map((step) => (
@@ -491,7 +491,7 @@ const Services = () => {
                 viewport={{ once: true }}
                 className="card p-6 text-center group"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <service.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{service.title}</h3>

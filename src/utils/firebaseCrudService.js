@@ -1,7 +1,3 @@
-// This file has been migrated to Firebase
-// Use firebaseCrudService.js instead
-// Keeping this file for reference during migration
-
 import { 
   collection, 
   doc, 
@@ -110,6 +106,3 @@ export default {
   updateRow,
   deleteRow,
 };
-
-
-

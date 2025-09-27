@@ -134,7 +134,7 @@ const Home = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-24 lg:hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
-          <DarkVeil speed={2} />
+          <DarkVeil speed={2} hueShift={20}/>
         </div>
 
         <div className="relative z-10 text-center px-6 w-full">
@@ -192,11 +192,11 @@ const Home = () => {
                 <span>4.9/5 Client Rating</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
                 <span>50+ Projects Completed</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-primary-400 rounded-full"></div>
                 <span>24/7 Support</span>
               </div>
             </motion.div>
@@ -239,11 +239,11 @@ const Home = () => {
       </section>
 
       {/* Desktop Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-24 hidden lg:flex">
+      <section className="relative min-h-screen items-center justify-center overflow-hidden pt-16 md:pt-24 hidden lg:flex">
         {/* Animated Background */}
         <div className="absolute inset-0 ">
           <DarkVeil
-            speed={2} />
+            speed={2} hueShift={20}/>
         </div>
 
         <div className="container-custom relative z-10 text-center px-4 pt-10 sm:px-6">
@@ -299,11 +299,11 @@ const Home = () => {
                 <span>4.9/5 Client Rating</span>
               </div>
               <div className="flex items-center gap-2 text-sm md:text-base text-gray-500 dark:text-gray-400">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
                 <span>50+ Projects Completed</span>
               </div>
               <div className="flex items-center gap-2 text-sm md:text-base text-gray-500 dark:text-gray-400">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-primary-400 rounded-full"></div>
                 <span>24/7 Support</span>
               </div>
             </motion.div>
@@ -377,7 +377,7 @@ const Home = () => {
                 viewport={{ once: true }}
               >
                 <BackgroundGradient className="p-8 text-center group bg-white dark:bg-dark-800 rounded-3xl">
-                  <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{service.title}</h3>
@@ -400,7 +400,7 @@ const Home = () => {
       </section>  
 
       {/* Stats Section */}
-      <section className="section-padding bg-gradient-to-r from-primary-600 to-purple-600 text-white">
+      <section className="section-padding bg-gradient-to-r from-primary-600 to-primary-500 text-white">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
