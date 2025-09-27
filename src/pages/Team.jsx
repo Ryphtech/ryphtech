@@ -54,7 +54,7 @@ const Team = () => {
   const founders = [
     {
       name: 'Devdarsh M',
-      role: 'Co-Founder & CEO',
+      role: 'Co-Founder & Co-CEO',
       handle: 'devdarsh',
       image: DevdarshImage,
       bio: 'Visionary leader with expertise in web development and business strategy. Passionate about creating innovative solutions that drive business growth.',
@@ -68,7 +68,7 @@ const Team = () => {
     },
     {
       name: 'Thanzeer J',
-      role: 'Co-Founder & CTO',
+      role: 'Co-Founder & Co-CEO',
       handle: 'thanzeer',
       image: ThanzeerImage,
       bio: 'Technical expert specializing in mobile development and machine learning. Committed to building scalable, cutting-edge technology solutions.',
