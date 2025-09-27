@@ -211,6 +211,10 @@ const Home = () => {
                 View Our Work
                 <Play className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
+              <a href="/jobs" className="btn-secondary inline-flex items-center justify-center group">
+                Jobs Portal
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
             </div>
 
             {/* Mobile Optimized Tech Section */}
@@ -321,6 +325,12 @@ const Home = () => {
                   <Play className="ml-2 w-4 h-4 md:w-5 md:h-5" />
                 </HoverBorderGradient>
               </Link>
+              <a href="/jobs" className="w-full sm:w-auto text-center">
+                <HoverBorderGradient as="div" containerClassName="rounded-full" className="dark:bg-black bg-white text-black dark:text-white inline-flex items-center justify-center px-6">
+                  Jobs Portal
+                  <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+                </HoverBorderGradient>
+              </a>
             </div>
           </motion.div>
 
