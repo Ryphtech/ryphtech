@@ -74,7 +74,7 @@ const Home = () => {
     {
       icon: Globe,
       title: 'Web Development',
-      description: 'Modern, responsive websites and web applications built with cutting-edge technologies.',
+      description: 'Modern websites and web applications built with cutting-edge technologies.',
       features: ['React & Next.js', 'Node.js & Express', 'Database Design', 'API Development']
     },
     {
@@ -92,8 +92,8 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: '50+', label: 'Projects Completed', icon: Award },
-    { number: '25+', label: 'Happy Clients', icon: Users },
+    { number: '25+', label: 'Projects Completed', icon: Award },
+    { number: '10+', label: 'Happy Clients', icon: Users },
     { number: '4.9', label: 'Client Rating', icon: Star },
     { number: '24/7', label: 'Support Available', icon: CheckCircle }
   ];

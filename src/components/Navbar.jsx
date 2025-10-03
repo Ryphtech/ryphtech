@@ -237,7 +237,7 @@ const Navbar = () => {
   const items = [
     {
       label: 'Home',
-      bgColor: '#0A0A0A',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'Go Home', ariaLabel: 'Return to home page', to: '/' },
@@ -245,7 +245,7 @@ const Navbar = () => {
     },
     {
       label: 'About',
-      bgColor: '#0D0716',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'Company', ariaLabel: 'About Company', to: '/about' },
@@ -254,7 +254,7 @@ const Navbar = () => {
     },
     {
       label: 'Projects',
-      bgColor: '#170D27',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'Featured', ariaLabel: 'Featured Projects', to: '/projects' },
@@ -263,7 +263,7 @@ const Navbar = () => {
     },
     {
       label: 'Contact',
-      bgColor: '#271E37',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'Contact Us', ariaLabel: 'Contact us page', to: '/contact' },
@@ -279,7 +279,7 @@ const Navbar = () => {
     },
     {
       label: 'Blog',
-      bgColor: '#121212',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'Latest Posts', ariaLabel: 'View blog', to: '/blog' },
@@ -287,7 +287,7 @@ const Navbar = () => {
     },
     {
       label: 'Team',
-      bgColor: '#151515',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'Meet the Team', ariaLabel: 'View team', to: '/team' },
@@ -295,7 +295,7 @@ const Navbar = () => {
     },
     {
       label: 'Testimonials',
-      bgColor: '#1A1A1A',
+      bgColor: '#0E0E0E',
       textColor: '#fff',
       links: [
         { label: 'What Clients Say', ariaLabel: 'View testimonials', to: '/testimonials' },
